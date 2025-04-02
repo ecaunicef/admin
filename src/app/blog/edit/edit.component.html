@@ -1,0 +1,221 @@
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="blogForm" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm(undefined)" module="Admin"
+            submodule="Access Control-User" accessType="add_edit" [matTooltip]="showTooltip ? 'Close' : 'Add'">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+        <div class="form-heading">
+
+            <h5><span class="bg-white">{{titlePage}} Broadcast Message</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Title</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="title" value="">
+                                <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('title')?.invalid && (blogForm.get('title')?.dirty || blogForm.get('title')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('title').errors?.required">
+                                        Title is required
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label>Sub Title</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="subtitle" value="">
+                                
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Message</label>
+                            <mat-form-field class="example-full-width">
+                                <!-- <input matInput formControlName="description" value=""> -->
+                                <textarea matInput formControlName="message" value="" rows="5" [maxlength]="200"></textarea>
+                                <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('message')?.invalid && (blogForm.get('message')?.dirty || blogForm.get('message')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('message').errors?.required">
+                                        Message is required
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Category</label>
+                            <mat-form-field class="example-full-width">
+                                <mat-select formControlName="message_category">
+                                    <mat-option *ngFor="let item of messageCategory" value="{{item.id}}">{{item.classification_name}}</mat-option>
+                                  </mat-select>
+
+                                  <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('message_category')?.invalid && (blogForm.get('message_category')?.dirty || blogForm.get('message_category')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('message_category').errors?.required">
+                                        Category is required
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label>Tag<span class="error-span">*</span></label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="tag" value="">
+                                <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('tag')?.invalid && (blogForm.get('tag')?.dirty || blogForm.get('tag')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('tag').errors?.required">
+                                        Tag is required
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-12 mb-4 pb-3">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span"></span>Select Broadcast Date</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="picker" formControlName="broadcastDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('broadcastDate')?.invalid && (blogForm.get('broadcastDate')?.dirty || blogForm.get('broadcastDate')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('broadcastDate').errors?.required">
+                                        Broadcast date is required
+                                    </div>
+                                </mat-error>
+                              </mat-form-field>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-12">
+                        <div class="add_aggregate_input position-relative broadcastRadio">
+                            <mat-radio-group formControlName="is_scheduled">
+                                <mat-radio-button value="0">Send now</mat-radio-button>
+                                <mat-radio-button value="1">Schedule</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" [ngClass]="blogForm.get('is_scheduled')?.value === '1' ? 'd-block' : 'd-none'">
+                        <div class="add_aggregate_input position-relative">
+                            <label for=""><span class="error-span">*</span> Broadcast Date</label>
+                            <!-- <mat-form-field class="example-full-width">
+                                <input
+                                  matInput
+                                  [matDatepicker]="picker"
+                                  formControlName="broadcastDate"
+                                  autocomplete="off"
+                                  [min]="minDate"
+                                  readonly
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                              
+                                <mat-error 
+                                  class="star error-span" 
+                                  *ngIf="blogForm.get('broadcastDate')?.invalid &&
+                                          (blogForm.get('broadcastDate')?.dirty || blogForm.get('broadcastDate')?.touched)">
+                                  <div class="star error-span" *ngIf="blogForm.get('broadcastDate')?.hasError('required')">
+                                    Broadcast date is required
+                                  </div>
+                                  <div class="star error-span" *ngIf="blogForm.get('broadcastDate')?.hasError('matDatepickerMin')">
+                                    You can't select a past date.
+                                  </div>
+                                </mat-error>
+                            </mat-form-field> -->
+
+
+                            <input type="datetime-local" formControlName="broadcastDate"  [min]="minDateTime" class="dateTimePicker"/>
+                            <div style="font-size: 12px; padding-left: 16px;" class="star error-span" *ngIf="blogForm.get('broadcastDate')?.invalid &&
+                                    (blogForm.get('broadcastDate')?.dirty || blogForm.get('broadcastDate')?.touched)">
+                                <div class="star error-span" *ngIf="blogForm.get('broadcastDate')?.hasError('required')">
+                                Broadcast date is required
+                                </div>
+                                <div class="star error-span" *ngIf="blogForm.get('broadcastDate')?.hasError('matDatepickerMin')">
+                                You can't select a past date.
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Geographical Area </label>
+
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="area" multiple>
+                                  <mat-select-trigger>
+                                    {{ getCountryName(blogForm.value.area?.[0]) || '' }}
+                                    <ng-container *ngIf="( blogForm.value.area?.length || 0) > 1">
+                                      <span class="example-additional-selection">
+                                        (+{{ (blogForm.value.area?.length || 0) - 1 }}
+                                        {{ blogForm.value.area?.length === 2 ? 'other' : 'others' }})
+                                      </span>
+                                    </ng-container>
+                                  </mat-select-trigger>
+                                  
+                                 <!-- <mat-option [value]="selectAllValue" (click)="toggleSelectAll()" [selected]="isAllSelected">
+                                    Select All
+                                  </mat-option> -->
+                                  <mat-option (click)="toggleSelectAll()" class="gaSelectAll">
+                                    <mat-checkbox [checked]="isAllSelected">Select All</mat-checkbox>
+                                  </mat-option>
+                                  <mat-option *ngFor="let country of allCountryList" [value]="country?.country_area_code" (click)="onSelectionChange($event)">
+
+                                    {{ country.country_name}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error class="star error-span"
+                                    *ngIf="blogForm.get('area')?.invalid && (blogForm.get('area')?.dirty || blogForm.get('area')?.touched)">
+                                    <div class="star error-span" *ngIf="blogForm.get('area').errors?.required">
+                                        Geographical Area is required
+                                    </div>
+                                </mat-error>
+                              </mat-form-field>
+<!-- 
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="area" multiple>
+                                    <mat-option *ngFor="let country of allCountryList" [value]="country.country_area_code">
+                                        {{country?.country_name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+
+                            
+                            <!-- <mat-form-field class="example-full-width">
+                                <input matInput formControlName="place">
+                            </mat-form-field> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center">
+            <button type="button" class="btn" [disabled]="!blogForm.valid"  *ngIf="!showEdit"  (click)="createBlog()">Add
+            </button>
+            <button type="button" class="btn" *ngIf="showEdit" [disabled]="!blogForm.valid"
+                (click)="updateBlog()">Update
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="overlay"></div>

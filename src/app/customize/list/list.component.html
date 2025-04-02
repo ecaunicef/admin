@@ -1,0 +1,177 @@
+<div class="mainContent classificationPage">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">Show</span>
+                            <label class="showDigits" > 
+                                <select (change)="changePageSize()" id="mySelectId">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="Search" (search)="clearSearch()"
+                        (keyup)="updateFilterList($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="ngxDatatable">
+                <ngx-datatable class="material" [rows]="rows" [columnMode]="columnMode.force"
+                    [headerHeight]="45" [footerHeight]="40" [rowHeight]="'auto'" [selected]="selected" [limit]="10"
+                    [messages]="{emptyMessage:'No data'}">
+                    <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                        [sortable]="false" [resizeable]="false">
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{(rowIndex + 1)}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Geographical Area" prop="area_name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.area_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Chatline Link" prop="w_link">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.w_link || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Status" prop="status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.status === 0 ? 'Disabled' : 'Enabled'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action" prop="show/hide" [maxWidth]="180" [sortable]="false">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <div class="dropdown select_action">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li module="Admin" submodule="Access Control-User" accessType="add_edit">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="handleEdit(row)">Edit</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="add_edit">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="changeStatus(row)">{{row.status === 0 ? 'Enable' : 'Disable'}}</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="deleteChatline(row.id)">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <!-- <ngx-datatable-column [maxWidth]="180" class="name_specific_col" name="Action" [sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <div class="dropdown select_action">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);"
+                                            (click)="deleteCounselling(row.id)">Delete</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </ng-template>
+                    </ngx-datatable-column> -->
+
+
+                    <ngx-datatable-footer>
+                        <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                            <div class="CstmPadding">
+                                <div>
+                                    {{'showing'|transloco}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to' |
+                                        transloco}} {{ rowCount> curPage *
+                                        pageSize ? curPage * pageSize : rowCount}} {{'of' | transloco}} {{rowCount}}
+                                        {{'records'|transloco}}
+
+                                </div>
+                            </div>
+                            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                [pagerRightArrowIcon]="'datatable-icon-right'"
+                                [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                                [page]="curPage" [size]="pageSize" [count]="rowCount"
+                                [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                            </datatable-pager>
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade fade custom-popup" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Are Sure Want to Change the Status</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text_area">
+
+                    <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                        <label><span class="error-span"></span> Comment (optional)</label>
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =================================Comment Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Comment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4">
+                <p>Comment</p>
+                <textarea [(value)]="selectedComment" name="" id="" cols="50" rows="5"
+                    (change)="onChangeComment($event.target.value)"></textarea>
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" >Reset</button> -->
+                <button data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="saveComment()">Save
+                    Changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-add-edit (setPage)="setPage({ offset: 0 })" [rows]="rows"></app-add-edit>

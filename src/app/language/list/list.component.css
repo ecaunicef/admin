@@ -1,0 +1,130 @@
+li.import_links {
+    margin-left: 12px;
+    padding: 0 0 0 12px;
+    border-radius: 0;
+    border-left: 1px solid #999;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease-in-out;
+}
+li.import_links:hover a img{
+    filter: invert(49%) sepia(71%) saturate(1451%) hue-rotate(325deg) brightness(100%) contrast(103%);
+}
+.otherLang button {
+    padding: 0;
+    background: transparent;
+    margin-left: 10px;
+}
+.otherLang button:hover img{
+    filter: invert(78%) sepia(57%) saturate(5697%) hue-rotate(321deg) brightness(94%) contrast(115%);
+}
+::ng-deep .otherLang .add_aggregate_input .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+.tableHeight{
+    height: calc(100% - 65px) !important;
+}
+
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  table.table.import_table {
+    margin: 20px 0;
+}
+
+
+.import_table tbody tr td {
+    font-size: 13px;
+    color: #333;
+    padding: 5px 15px;
+    border: none;
+    max-width: 446px;
+}
+.import_table tbody tr td:nth-child(1) {
+    font-weight: 600;
+}
+.import_table tbody tr:nth-child(2n) td {
+    background-color: #ececec;
+}
+#filestatus {
+    animation: blinkingText 1.2s infinite;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@keyframes blinkingText {
+    0% {
+        color: #0818f7;
+    }
+
+    20% {
+        color: red;
+    }
+
+    45% {
+        color: #ec13da;
+    }
+
+    60% {
+        color: #1447ee;
+    }
+
+    80% {
+        color: green;
+    }
+
+    100% {
+        color: #000;
+    }
+}
+.processDiv .strip-status {
+    position: absolute;
+    text-align: center;
+    right: 0;
+    left: 0;
+    color: #fff !important;
+}
+.import_table tbody{
+    border: none;
+}
+.processDiv .progress {
+    position: relative;
+}
+.progress{
+    background-color: #e9ecef;
+}
+.progress-stacked {
+    background: var(--primary-color);
+}
+h6.import_browse {
+    margin: 20px 0 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+}
+@media  (max-width:1600px) {
+
+
+}
+
+@media  (max-width:1366px) {
+
+    .tableHeight{
+        height: calc(100% - 85px) !important;
+    }
+}

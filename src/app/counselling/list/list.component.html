@@ -1,0 +1,716 @@
+<div class="mainContent classificationPage">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">Show</span>
+                            <label class="showDigits" > 
+                                <select (change)="changePageSize()" id="mySelectId">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li>
+
+                    <li class="filter_li">
+                        <a class="dropdown-toggle filter_sec" matTooltip="Filter"  data-bs-auto-close="false" aria-expanded="false" [matTooltipPosition]="'above'" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="filterSelected ? 'active' : ''"><img src="assets/images/filter.svg">
+                    </a>
+                        <div id="filterModal" class="filter_drop dropdown-menu custom-popup py-0">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Filter</h1>
+                                <button type="button" class="btn-close ms-auto filter-close" data-bs-auto-close="inside"
+                                    aria-expanded="false" aria-label="Close" (click)="closeModal()"></button>
+                            </div>
+                            <form [formGroup]="filterForm" class="">
+                                <div class="px-4 py-5">
+                                    <div class="form-box h-100 p-0 w-100 pt-2">
+                                        <div class="row mb-4">
+                                            <div class="col-md-12">
+                                                <div class="add_aggregate_input position-relative">
+                                                    <label>First Name</label>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input matInput formControlName="first_name" value="">
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-12">
+                                                <div class="add_aggregate_input position-relative">
+                                                    <label>Last Name</label>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="last_name" matInput value="">
+                                                    </mat-form-field>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-12">
+                                                <div class="add_aggregate_input position-relative">
+                                                    <label>By Age Group</label>
+                                                    <mat-form-field class="example-full-width textarea-box">
+                                                        <mat-select formControlName="age_group">
+                                                          <mat-option value="all">All</mat-option>
+                                                          <mat-option value="0-4">0-4 Years</mat-option>
+                                                          <mat-option value="5-9">5-9 Years</mat-option>
+                                                          <mat-option value="10-14">10-14 Years</mat-option>
+                                                          <mat-option value="18-30">18-30 Years</mat-option>
+                                                          <mat-option value="30+">30+ Years</mat-option>
+                                                        </mat-select>
+                                                      </mat-form-field>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-12 add_aggregate_input checkbox_div">
+                                                <label>Gender</label>
+                                                <div class="d-flex gap-49">
+                                                    <div>
+                                                        <mat-checkbox 
+                                                            [checked]="isChecked('all')" 
+                                                            (change)="onGenderChange('all', $event.checked)">
+                                                            All
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div>
+                                                        <mat-checkbox 
+                                                            [checked]="isChecked('male')" 
+                                                            (change)="onGenderChange('male', $event.checked)">
+                                                            Male
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div>
+                                                        <mat-checkbox 
+                                                            [checked]="isChecked('female')" 
+                                                            (change)="onGenderChange('female', $event.checked)">
+                                                            Female
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div>
+                                                        <mat-checkbox 
+                                                            [checked]="isChecked('other')" 
+                                                            (change)="onGenderChange('other', $event.checked)">
+                                                            Other
+                                                        </mat-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+
+                                        <!-- <div class="row grey_box">
+                                            <div class="col-md-12">
+                                                <div class="add_aggregate_input position-relative px-0">
+                                                    <label>By Geographical Area</label>
+                                                    <div class="d-flex w-100">
+                                                        <div class="w-50 pe-2">
+                                                            <label class="gaLabel">Country</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                                <mat-select>
+                                                                    <mat-option value="Select Country">Select Country</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="w-50 ps-2">
+                                                            <label class="gaLabel">District</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                                <mat-select>
+                                                                    <mat-option value="Select District">Select District</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                            </div>
+                                        </div> -->
+
+                                        <div class="row grey_box mb-0">
+                                            <div class="col-md-12">
+                                                <div class="add_aggregate_input position-relative px-0">
+                                                    <label>By Appointment Date</label>
+                                                    <mat-form-field class="example-full-width textarea-box" formGroupName="appointment_date">
+                                                        <mat-date-range-input [rangePicker]="rangePicker">
+                                                            <input matStartDate placeholder="Start date" formControlName="start" readonly/>
+                                                            <input matEndDate placeholder="End date" formControlName="end" readonly/>
+                                                        </mat-date-range-input>
+                                                        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                                                        <mat-date-range-picker #rangePicker>
+                                                            <mat-date-range-picker-actions>
+                                                                <button mat-button matDateRangePickerCancel>Cancel</button>
+                                                                <button mat-raised-button matDateRangePickerApply>Apply</button>
+                                                            </mat-date-range-picker-actions>
+                                                        </mat-date-range-picker>
+                                                    </mat-form-field>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" d-flex justify-content-center align-items-center border-top py-3">
+                                    <button type="button" data-bs-dismiss="modal"
+                                        class="btn btn-secondary me-2" (click)="resetFilter()" [disabled]="!isFormFilledState">Reset</button>
+                                    <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="ApplyFilter()" [disabled]="!isFormFilledState">Apply</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="home_select form-box midDropDown p-0">
+                    <div class="add_aggregate_input position-relative flex-row align-items-center">
+                        <label>Status</label>
+                        <mat-form-field class="example-full-width">
+                            <mat-select (selectionChange)="getCounselling()" [(ngModel)]="selectedStatus">
+                                <mat-option value="all">All</mat-option>
+                                <mat-option value="1">Open</mat-option>
+                                <mat-option value="0">Closed</mat-option>
+                                <mat-option value="2">Reopen</mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="Search" (search)="clearSearch()"
+                        (keyup)="updateFilterList($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="ngxDatatable counsellingTable">
+                <ngx-datatable class="material" [rows]="counsellingList" [columnMode]="columnMode.force"
+                    [headerHeight]="45" [footerHeight]="40" [rowHeight]="'auto'" [selected]="selected" [limit]="10"
+                    [messages]="{emptyMessage:'No data'}"  scrollbarH="True">
+
+
+                    <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                        [sortable]="false" [resizeable]="false">
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{(rowIndex + 1)}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    
+
+                    <ngx-datatable-column prop="age" [width]="110"  [maxWidth]="110">
+                        <ng-template ngx-datatable-header-template>
+                            <p class="m-0">Age <span class="tableYear">(Yrs)</span></p>
+                          </ng-template>
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.age || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Gender" prop="gender" [width]="100"  [maxWidth]="100">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off"> {{ row.gender || '-' }} </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Geographical Area" prop="parent_area_name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{getCountryColumn(row)}}
+
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Geographical Area" [maxWidth]="180" [minWidth]="180" prop="name" *ngIf="selectedCountry == 'all'">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <div class="level_area">
+                                <p>Level 1 | Level 2</p>
+                          </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Language" prop="language" [width]="120"  [maxWidth]="120">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{getLanguage(row.language) || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                     <ngx-datatable-column name="Counselling Given to" prop="counselling_given">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.counselling_given === 'child' ? "Child" : row.counselling_given === 'adult' ? "Adult" : row.counselling_given === 'caregiver' ? "Caregiver" : '' }}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+<!--
+                    <ngx-datatable-column name="Contact Number" [maxWidth]="180" [minWidth]="180" prop="mobile_number">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.mobile_number}}
+                        </ng-template>
+                    </ngx-datatable-column> -->
+
+                    
+                
+                    <ngx-datatable-column name="Appointment Date" [maxWidth]="180" [minWidth]="180" prop="appointment_date">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.appointment_date}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+                    <ngx-datatable-column name="Reason" prop="appointment_reason">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <div class="modal_para">
+                           <p class="ellipseText" matTooltip="{{ formatAppointmentReason(row.appointment_reason) }}" [matTooltipPosition]="'above'"> 
+                                {{ formatAppointmentReason(row.appointment_reason) }} 
+                            </p> 
+                            <img src="assets/images/arrow.svg" class="popupArrow" (click)="showReason(row.appointment_reason)" data-bs-toggle="modal" data-bs-target="#reasonModal">                           
+                        </div>
+                           
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Message" prop="message">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <div class="modal_para">
+                                <p class="ellipseText" matTooltip="{{ row.message }}" [matTooltipPosition]="'above'">{{row.message}}</p>
+                                <img (click)="showMessage(row.message)" class="popupArrow" src="assets/images/arrow.svg"  data-bs-toggle="modal" data-bs-target="#messageModal"/>
+                            </div>
+
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Comment" prop="comment" *ngIf="selectedStatus!='1'"><ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <div class="modal_para">
+                            <p class="ellipseText" matTooltip="{{ row.comment }}" [matTooltipPosition]="'above'"> {{ row.comment || '-' }} </p>
+                            
+                                <img src="assets/images/arrow.svg" (click)="showComment(row.comment)" class="popupArrow mb-0"*ngIf="row.comment" data-bs-toggle="modal" data-bs-target="#commentModal">
+                            
+                        </div>
+                    </ng-template></ngx-datatable-column> 
+
+                    <ngx-datatable-column name="Status" prop="Status" [width]="100"  [maxWidth]="100">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.current_status === 0 ? 'Closed' : row.current_status === 1 ? 'Open' : 'Reopen'}}
+                            <!-- <div class="form-check form-switch ps-0">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="flexSwitchCheckChecked-{{row.id}}" [checked]="row.current_status === 1"
+                                    (change)="onToggleSwitch($event, row)">
+                                <label class="form-check-label" for="flexSwitchCheckChecked-{{row.id}}"></label>
+                            </div> -->
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [maxWidth]="180" [minWidth]="180" class="name_specific_col" name="Action" [sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <div class="dropdown select_action">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <!-- <li module="Admin" submodule="Access Control-User" accessType="Edit">
+                                        <a class="dropdown-item" href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                    </li> -->
+                                    <li module="Admin" submodule="Access Control-User" accessType="Edit">
+                                        <a (click)="changeStatus(row)" class="dropdown-item" href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#editcommentModal">{{row.current_status === 0 ? 'Mark Reopen' : 'Mark Close'}}</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="View Details" *ngIf="assignedCountryList.length==1 || userType==1">
+                                        <a class="dropdown-item" href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#viewDetails" (click)="viewMassageMode(row)">View Details</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);"
+                                            (click)="deleteCounselling(row.id)">Delete</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+                    <ngx-datatable-footer>
+                        <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                            <div class="CstmPadding">
+                                <div>
+                                    {{'showing'}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to'}} {{ rowCount> curPage *
+                                        pageSize ? curPage * pageSize : rowCount}} {{'of'}} {{rowCount}}
+                                        {{'records'}}
+
+                                </div>
+                            </div>
+                            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                [pagerRightArrowIcon]="'datatable-icon-right'"
+                                [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                                [page]="curPage" [size]="pageSize" [count]="rowCount"
+                                [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                            </datatable-pager>
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade fade custom-popup" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Are Sure Want to Change the Status</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text_area">
+
+                    <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                        <label><span class="error-span"></span> Comment (optional)</label>
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =================================Message Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4">
+                <p>{{message}}</p>                
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================Comment Modal Box========================= -->
+<div class="modal fade custom-popup" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Comment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4">
+                <p>{{comment}}</p>                
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================Edit Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Edit</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4">
+                <div class="form-box p-0">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="add_aggregate_input position-relative px-0">
+                                <label class="mb-2 ps-0">By Geographical Area</label>
+                                <div class="d-flex w-100">
+                                    <div class="w-50 pe-2">
+                                        <label class="gaLabel">Country</label>
+                                        <mat-form-field class="example-full-width textarea-box">
+                                            <mat-select>
+                                                <mat-option value="Select Country">Select Country</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="w-50 ps-2">
+                                        <label class="gaLabel">District</label>
+                                        <mat-form-field class="example-full-width textarea-box">
+                                            <mat-select>
+                                                <mat-option value="Select District">Select District</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                 
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>First Name</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput  formControlName="username"  value="">
+                                    <mat-error class="star error-span">
+                                        <div class="star error-span"></div>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Last Name</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput  formControlName="username"  value="">
+                                    <mat-error class="star error-span">
+                                        <div class="star error-span"></div>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+    
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Contact Number</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="number"  value="">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Gender</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select>
+                                        <mat-option value="Male">Male</mat-option>
+                                        <mat-option value="Female">Female</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Age</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select>
+                                        <mat-option value="0-15">0-15</mat-option>
+                                        <mat-option value="15-30">15-30</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Language</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select>
+                                        <mat-option value="English">English</mat-option>
+                                        <mat-option value="Russian">Russian</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div> -->
+
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Appointment Date</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <!-- <mat-date-range-input [rangePicker]="rangePickerEdit">
+                                        <input matStartDate placeholder="Start date" />
+                                        <input matEndDate placeholder="End date" />
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matIconSuffix
+                                        [for]="rangePickerEdit"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #rangePickerEdit>
+                                        <mat-date-range-picker-actions>
+                                            <button mat-button
+                                                matDateRangePickerCancel>Cancel</button>
+                                            <button mat-raised-button
+                                                matDateRangePickerApply>Apply</button>
+                                        </mat-date-range-picker-actions>
+                                    </mat-date-range-picker> -->
+                                    <input matInput formControlName="start_date" [matDatepicker]="picker">                            
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker> 
+                                </mat-form-field>
+                                   
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                            <label> Message </label>
+                            <div class="input-group">
+                                <textarea class="form-control" aria-label="With textarea"></textarea>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Reason</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select formControlName="language" multiple>
+                                        <mat-option>
+                                            Select Reason 
+                                        </mat-option>
+                                        <mat-option>
+                                            Reason 1
+                                        </mat-option>
+                                        <mat-option>
+                                            Reason 2
+                                        </mat-option>
+                                      </mat-select>
+                                </mat-form-field>
+                            </div>
+                          
+                        </div>
+                        <!-- <div class="col-12">
+                            <div class="add_aggregate_input position-relative">
+                                <label>Status</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select>
+                                        <mat-option value="Open">Open</mat-option>
+                                        <mat-option value="Closed">Closed</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+ 
+              
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" >Reset</button> -->
+                <button data-bs-dismiss="modal" class="btn btn-primary">Cancel</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="saveComment()">Add</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================Edit Comment Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="editcommentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">{{(selectedComment)?"Edit Comment":"Add Comment"}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4 form-box">
+                <p class="mb-1">Counselling given to</p>
+                <div class="add_aggregate_input position-relative mb-4">
+                    <mat-form-field class="example-full-width textarea-box">
+                        <mat-select [(ngModel)]="counsellingGiven">
+                            <mat-option value="child">Child</mat-option>
+                            <mat-option value="adult">Adult</mat-option>
+                            <mat-option value="caregiver">Caregiver</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <p class="mb-1">Comment <span class="text-danger">*</span></p>
+                <div class="add_aggregate_input position-relative">
+                    <mat-form-field class="example-full-width textarea-box">
+                        <textarea class="w-100"  [(value)]="selectedComment"   name="" id="" cols="50" rows="5" (input)="onChangeComment($event.target.value)" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"  maxlength="500"></textarea>
+                    </mat-form-field>
+                    <span>Maximum {{ typedComment?.length || 0 }}/500 characters</span>
+                </div>              
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" >Reset</button> -->
+                <button data-bs-dismiss="modal" class="btn btn-primary">Cancel</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="disableBtn" (click)="saveComment()">{{(selectedComment)?'Update':'Add'}}</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================Edit Comment Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="viewDetails" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4 form-box">
+                <table class="table viewDetailsTable">
+                    <tbody>
+                        <tr>
+                            <td>Name:</td><td><span>{{viewRowMessage.first_name+' '+viewRowMessage.second_name}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contact Number:</td><td><span>{{viewRowMessage.mobile_number}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button data-bs-dismiss="modal" class="btn btn-primary">Ok</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Reason Modal -->
+
+<div class="modal fade custom-popup" id="reasonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Reason</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4 form-box">
+                <p class="ellipseText"> {{reason}} </p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button data-bs-dismiss="modal" class="btn btn-primary">Ok</button>
+            </div>
+
+        </div>
+    </div>
+</div>

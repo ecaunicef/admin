@@ -1,0 +1,116 @@
+
+
+
+.ngxDatatable input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.ngxDatatable label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 38px;
+    height: 16px;
+    background: #F2F2F2;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    border: 1px solid #D9D8D8;
+}
+
+.ngxDatatable label:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    background: #9B9B9B;
+    border-radius: 90px;
+    transition: 0.3s;
+    bottom: 0;
+    margin: auto;
+}
+
+
+.ngxDatatable input:checked + label:after {
+    left: calc(100% + 0px);
+    transform: translateX(-100%);
+    background: #FF6356;
+}
+
+.ngxDatatable label:active:after {
+	width: 130px;
+}
+
+#statusModal .modal-dialog {
+    max-width: 25%;
+}
+
+#statusModal .modal-body {
+    min-height: 20vh;
+    max-height: 40vh;
+}
+.filter_drop .form-box .add_aggregate_input.checkbox_div{
+    padding:0 30px;
+}
+::ng-deep .checkbox_div .mdc-checkbox {
+    padding-right: 0;
+    padding-left: 0;
+}
+::ng-deep .checkbox_div .mdc-checkbox .mdc-checkbox__background{
+    left: 0;
+}
+
+::ng-deep .checkbox_div .mdc-label {
+    margin-bottom: 0;
+}
+::ng-deep .checkbox_div .mat-ripple, ::ng-deep .checkbox_div .mat-mdc-checkbox .mdc-checkbox__ripple{
+    display: none;
+}
+::ng-deep .filter_drop .mat-mdc-form-field-flex,  ::ng-deep #editModal .mat-mdc-form-field-flex{
+    align-items: center;
+}
+
+.popupArrow{
+    cursor: pointer;
+    position: absolute;
+    top: auto;
+    right: -11px;
+    left: auto;
+    transform: translateY(-50%);
+    bottom: 1px;
+}
+.ellipseText{
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+.custom-popup .modal-body .ellipseText{
+    display: inline-block;
+}
+::ng-deep .fitWidth .example-full-width .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+    width: 80px;
+}
+.fitWidth{
+    padding-top: 0;
+    margin-top: -4px !important;
+}
+
+@media (max-width:1600px){
+    .ngxDatatable.counsellingTable {
+        height: calc(100% - 54px);
+    }
+}
+@media (max-width:1366px){
+    ::ng-deep .fitWidth .example-full-width .mat-mdc-text-field-wrapper {
+        min-height: 24px;
+    }
+    .ngxDatatable.counsellingTable {
+        height: calc(100% - 49px);
+    }
+}

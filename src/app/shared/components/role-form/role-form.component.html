@@ -1,0 +1,206 @@
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <div class="gallery-toggler add-user" (click)="showForm(undefined)"
+        matTooltip="{{ !showTooltip ? ('add'|transloco) : ('close'|transloco) }}" accessControl module="Admin"
+        submodule="Access Control-Role and Permission" accessType="add_edit">
+        <img src="assets/images/plus.svg" alt="">
+    </div>
+    <div class="form-heading">
+        <h5><span class="bg-white">{{ viewForm ? 'View' : titlePage}} {{'role_permission.form_title'| transloco}}</span></h5>
+    </div>
+    <div class="gallery-collection">
+        <div class="form-box">
+            <div class="row">
+                <div class="col-12" >
+                    <div class="add_aggregate_input position-relative">
+                        <label>{{'role_permission.role' | transloco}}</label>
+                        <mat-form-field class="example-full-width">
+                            <input matInput [readonly]="viewForm" value={{role}} (keyup)="filterInput($event.target, 'module')" type="text" matInput>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="add_aggregate_input position-relative">
+                        <label>{{'role_permission.primary_data_folder_name' | transloco}}</label>y(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.viewIsChecked" [checked]="submodule.permission.viewIsChecked" (change)="selectChild($event, 'viewIsChecked', listindex)">
+                                                    </td>
+                                                    <td>
+                                                        <input  [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.editIsChecked" [checked]="submodule.permission.editIsChecked" (change)="selectChild($event, 'editIsChecked', listindex)">
+                                                    </td>
+                                                    <td>
+                                                        <input  [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.deleteIsChecked" [checked]="submodule.permission.deleteIsChecked" (change)="selectChild($event,'deleteIsChecked',listindex)">
+                                                    </td>
+                        <mat-form-field class="example-full-width">
+                            <mat-select [value]="selectedFolderNames" multiple> -->
+                                <!-- <mat-select-trigger>
+                                    <span></span>
+                                </mat-select-trigger> -->
+                                <!-- <mat-select-trigger>
+                                    {{ selectedFolderNames?.slice(0, 3).join(', ') || '' }}
+                                    <span *ngIf="selectedFolderNames?.length > 3" class="example-additional-selection">
+                                      (+{{ selectedFolderNames.length - 3 }} {{ selectedFolderNames.length === 4 ? 'other' : 'others' }})
+                                    </span>
+                                </mat-select-trigger>
+                                <div class="selectOptionAll">
+                                    <mat-checkbox class="mat-option" (click)="selectAllPrimaryData($event)">Select All</mat-checkbox>
+                                </div>
+                                <mat-option *ngFor="let name of folderNames" [value]="name" (click)="toggleSelection(name,$event)">{{name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+
+                </div>
+                <div class="col-md-12">
+                    <div class="static_table_area">
+                        <table class="accordion-table position-relative">
+                            <thead class="stickyThead">
+                                <tr>
+                                    <th class="blank"></th>
+                                    <th>{{'module' | transloco}}</th>
+                                    <th>{{'view' | transloco}}</th>
+                                    <th>{{'add_edit' | transloco}}</th>
+                                    <th>{{'delete' | transloco}}</th>
+                                    <th>{{'show_hide' | transloco}}</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let elements of module; index as i">
+                                <tr class="header-level" >
+                                    <td class="expand open_childs" (click)="openNestedList(i)" >
+                                        <img *ngIf="clickedIndex === i" src="assets/images/add_tb_minus.svg" alt="">
+                                        <img *ngIf="clickedIndex !== i" src="assets/images/add_tb.svg" alt="">
+                                    </td>
+                                    <td>{{elements.displayName}}</td>
+                                    <td><input class="form-check-input" type="checkbox" [(ngModel)]="elements.permission.viewIsChecked" [checked]="elements.permission.viewIsChecked" (change)="selectAllchild('viewIsChecked',i, $event)" [disabled]="viewForm"></td>
+                                    <td><input class="form-check-input" type="checkbox" [(ngModel)]="elements.permission.editIsChecked" [checked]="elements.permission.editIsChecked" (change)="selectAllchild('editIsChecked',i, $event)" [disabled]="viewForm"></td>
+                                    <td><input class="form-check-input" type="checkbox" [(ngModel)]="elements.permission.deleteIsChecked" [checked]="elements.permission.deleteIsChecked" (change)="selectAllchild('deleteIsChecked',i, $event)" [disabled]="viewForm"></td>
+                                    <td><input class="form-check-input" type="checkbox" [(ngModel)]="elements.permission.showIsChecked" [checked]="elements.permission.showIsChecked" (change)="selectAllchild('showIsChecked',i, $event)" [disabled]="viewForm"></td>
+                                </tr>
+                                <!-- {{ elements.subModule | json}} -->
+                                <tr class="sub-level d-table-row" *ngIf="clickedIndex === i">
+                                    <td colspan="6" class="p-0">
+                                        <table *ngFor="let submodule of elements.subModule; index as i2">
+                                            <tbody [Disabled]="true" [ngClass]="{'disable': checkPrimay(submodule.displayName)}">
+                                                <tr *ngIf="i==listindex">
+                                                    <!-- <tr> -->
+                                                    <td class="blank"></td>
+                                                    <!-- {{role | json}} -->
+                                    <!-- <td class="expand open_childs" (click)="openNestedList2(i2)"><img src="{{(tabChanges && clickedIndex==i) ? 'assets/images/add_tb_minus.svg' : 'assets/images/add_tb.svg'}}" alt=""></td> -->
+
+                                                    <td>{{submodule.displayName}}</td>
+                                                    <td>
+                                                        <input [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.viewIsChecked" [checked]="submodule.permission.viewIsChecked" (change)="selectChild($event, 'viewIsChecked', listindex)">
+                                                    </td>
+                                                    <td>
+                                                        <input  [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.editIsChecked" [checked]="submodule.permission.editIsChecked" (change)="selectChild($event, 'editIsChecked', listindex)">
+                                                    </td>
+                                                    <td>
+                                                        <input  [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.deleteIsChecked" [checked]="submodule.permission.deleteIsChecked" (change)="selectChild($event,'deleteIsChecked',listindex)">
+                                                    </td>
+                                                    <td>
+                                                        <input [disabled]="checkPrimay(submodule.displayName)" class="form-check-input" type="checkbox" [(ngModel)]="submodule.permission.showIsChecked" [checked]="submodule.permission.showIsChecked" (change)="selectChild($event, 'showIsChecked', listindex)">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!-- <tbody>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>Data Management</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="blank" colspan="6">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><img src="assets/images/add_tb.svg" alt=""></td>
+                                                    <td>Topic and Subtopic</td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="assets/images/add_tb.svg" alt=""></td>
+                                                    <td>Primary Dataset</td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                                    <td>Indicator Dataset</td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>SBR</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>SEE</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>Report</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>Admin</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="open_childs"><img src="assets/images/add_tb.svg" alt=""></td>
+                                    <td>SDMX</td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                    <td><input class="form-check-input" type="checkbox" /></td>
+                                </tr>
+                            </tbody> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-sidebar-button modal-footer-shadow text-center" [disabled]="viewForm"  *ngIf="!viewForm" >
+        <button type="button" class="btn" *ngIf="!showEdit" [disabled]="!buttonEnable || buttonOn"
+            (click)="addPermission()">{{'user.add' | transloco}}
+            <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt=""> -->
+        </button>
+        <button type="button" class="btn" *ngIf="showEdit" [disabled]="!buttonEnable || buttonOn"
+            (click)="updatePermission(this.managePermission.value)">{{'user.update' | transloco}}
+            <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt=""> -->
+        </button>
+    </div>
+</div>
+
+<div class="overlay"></div>
+
+

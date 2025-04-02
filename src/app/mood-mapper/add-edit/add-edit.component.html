@@ -1,0 +1,50 @@
+<div class="gallery-sidebar add-user-modal moodMapper" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="manageCredential" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm('')" matTooltip="{{ !showTooltip ? ('add') : ('close') }}" module="Admin" submodule="Access Control-User" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+        <div class="form-heading">
+            <h5><span class="bg-white">{{titlePage}} Mood Mapper</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Mood</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="mood">
+                                    <mat-option *ngFor="let item of allMood" value="{{item}}">{{item}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                           
+                            <label><span class="error-span">*</span> Description</label>
+                            <mat-form-field class="example-full-width">
+                                <textarea matInput formControlName="description" value="" rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Assigned Module</label>
+                            <mat-form-field appearance="fill" class="example-full-width textarea-box">
+                                <mat-select formControlName="assigned_modules" multiple >
+                                  <mat-option *ngFor="let item of allAssigneList" [value]="item">{{item}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center">
+            <button type="button" class="btn" (click)="updateMoodMapper()">Update</button>
+        </div>
+    </form>
+</div>
+<div class="overlay" [ngClass]="{'d-block' : showEdit}"></div>

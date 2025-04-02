@@ -1,0 +1,402 @@
+<div class="mainContent">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">{{'show' | transloco}}</span>
+                            <label class="showDigits" > 
+                                <select id="mySelectId" (change)="changePageSize()">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label> 
+                        </div>
+                    </li>
+               
+                    <li class="filter_li" module="Admin">
+                        <!-- <a data-bs-toggle="modal" data-bs-target="#filter-popup" matTooltip="Filter" [matTooltipPosition]="'above'">
+                            <img src="assets/images/filter.svg"></a> -->
+
+                                <a class="dropdown-toggle filter_sec"  matTooltip="Filter" data-bs-auto-close="false" aria-expanded="false" [matTooltipPosition]="'above'" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="filterSelected ? 'active' : ''">
+                                    <img src="assets/images/filter.svg">
+                                </a>
+                                
+                                <div id="filter_drop" class="filter_drop dropdown-menu custom-popup py-0">
+                                        <div class="modal-header">
+                                               <h1 class="modal-title">Filter</h1>
+                                               <button type="button" class="btn-close ms-auto filter-close" data-bs-auto-close="inside" aria-expanded="false" aria-label="Close" (click)="onExit()"></button>
+                                        </div>
+                                    <form [formGroup]="filterForm" class="">
+                                        <div class="px-4 py-5">
+                                            <div class="form-box h-100 p-0 w-100 pt-2">
+                                           
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative">
+                                                            <label>By Age Group</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                              <mat-select formControlName="age">
+                                                                <mat-option value="all">All</mat-option>
+                                                                <mat-option value="0-4">Under 5 years</mat-option>
+                                                                <mat-option value="5-9">5-9 Years</mat-option>
+                                                                <mat-option value="10-14">10-14 Years</mat-option>
+                                                                <mat-option value="15-17">15-17 Years</mat-option>
+                                                                <mat-option value="18-">Above 18 years</mat-option>
+                                                              </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12 add_aggregate_input checkbox_div">
+                                                        <!-- <div class="add_aggregate_input position-relative">
+                                                            <label>Gender</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                              <mat-select formControlName="gender">
+                                                                <mat-option value="male">Male</mat-option>
+                                                                <mat-option value="female">Female</mat-option>
+                                                                <mat-option value="other">Others</mat-option>
+                                                                <mat-option value="all">All</mat-option>
+                                                              </mat-select>
+                                                            </mat-form-field>
+                                                        </div> -->
+                                                        <label>Gender</label>
+                                                       
+                                                        <div class="d-flex gap-49">
+                                                            <div>
+                                                                <mat-checkbox  [checked]="genderSelection.all"  (change)="updateSelectAll($event)">All</mat-checkbox>
+                                                              </div>
+                                                            <div>
+                                                                <mat-checkbox   [checked]="genderSelection.Male"   (change)="updateSelect('Male',$event)">Male</mat-checkbox>
+                                                              </div>
+                                                              <div>
+                                                                <mat-checkbox [checked]="genderSelection.Female"  (change)="updateSelect('Female',$event)">Female</mat-checkbox>
+                                                              </div>
+                                                              <div>
+                                                                <mat-checkbox  [checked]="genderSelection.Other"    (change)="updateSelect('Other',$event)">Other</mat-checkbox>
+                                                              </div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative">
+                                                            <label>By Language</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                                <mat-select formControlName="language" multiple>
+                                                                    <mat-option *ngFor="let language of languageOptions" [value]="language.code">
+                                                                    {{language?.label}}
+                                                                    </mat-option>
+                                                                  </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="row mb-4" *ngIf="selectedHeaderArea?.country=='all'">
+                                                    <div class="col-12">
+                                                        <div class="add_aggregate_input position-relative">
+                                                            <label><span class="error-span"></span> Country</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                                <mat-select formControlName="country">
+                                                                    <mat-option value="all">All</mat-option>
+                                                                    <mat-option *ngFor="let item of allCountryList"
+                                                                        [value]="item.country_name">{{item.country_name}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="row grey_box">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative px-0">
+                                                            <label>By Geographical Area</label>
+                                                            <div class="d-flex w-100">
+                                                                <div class="w-50 pe-2">
+                                                                    <label class="gaLabel">Country</label>
+                                                                    <mat-form-field class="example-full-width textarea-box">
+                                                                        <mat-select formControlName="country" (selectionChange)="onChangeCountryList($event)">
+                                                                            <mat-option value="Select Country">Select Country</mat-option>
+                                                                            <mat-option *ngFor="let item of allCountryList" [value]="item">{{item?.country_name}}</mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="w-50 ps-2">
+                                                                    <label class="gaLabel">District</label>
+                                                                    <mat-form-field class="example-full-width textarea-box">
+                                                                        <mat-select formControlName="district" (selectionChange)="onChangeDistrictList($event)">
+                                                                            <mat-option value="Select District">Select District</mat-option>
+                                                                            <mat-option *ngFor="let item of districtList" [value]="item">{{item.district_name}}</mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div> -->
+
+
+                                                <div class="row grey_box mb-0">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative px-0">
+                                                            <label>By Registration Date</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                                <!-- <mat-label>Enter a date range</mat-label> -->
+                                                                <mat-date-range-input [rangePicker]="rangePicker" [max]="maxDate">
+                                                                  <input matStartDate placeholder="Start date"  formControlName="startDate" readonly />
+                                                                  <input matEndDate placeholder="End date"  formControlName="endDate" readonly />
+                                                                </mat-date-range-input>
+                                                                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                                                                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                                                                <mat-date-range-picker #rangePicker>
+                                                                  <mat-date-range-picker-actions>
+                                                                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                                                                    <button mat-raised-button matDateRangePickerApply>Apply</button>
+                                                                  </mat-date-range-picker-actions>
+                                                                </mat-date-range-picker>
+                                                              </mat-form-field>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class=" d-flex justify-content-center align-items-center border-top py-3">
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" (click)="onClickRestFilter()" [disabled]="!isFormValid">Reset</button>
+                                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="onApplyFilter()" [disabled]="!isFormValid">Apply</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            
+                    </li>
+                </ul>
+
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="{{'search' | transloco}}" (search)="clearSearch()" (keyup)="updateFilter($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ngxDatatable">
+           
+
+                <ngx-datatable class="material" [rows]="rows" [columnMode]="columnMode.force" [headerHeight]="45"
+                [footerHeight]="40" [rowHeight]="'auto'" [selected]="selected" [limit]="10"
+                [messages]="{emptyMessage:'No data'}">
+
+
+                <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                    [sortable]="false" [resizeable]="false">
+                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                        {{(rowIndex + 1)}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+              
+
+                <ngx-datatable-column prop="age" [width]="150"  [maxWidth]="150">
+                    <ng-template ngx-datatable-header-template>
+                        <p class="m-0">Age <span class="tableYear">(Yrs)</span></p>
+                      </ng-template>
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.age}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Gender" prop="gender" [width]="100"  [maxWidth]="100">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.gender}}
+                    </ng-template>
+                </ngx-datatable-column>
+    
+
+        
+                <ngx-datatable-column name="Geographical Area"  prop="place">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <div class="level_area">
+                            <!-- <p>Level 1 | Level 2</p> -->
+                            <p>{{ row?.area?.ParentArea?.name ? (row.area.ParentArea.name + ' | ' + row.area.name) : row?.place +  (row?.district != null ? ' | '+row?.district :'') }}</p>
+                      </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                
+                <ngx-datatable-column name="Language" prop="language">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.language =='en' ? 'English': row.language =='fr' ? 'French' : row.language =='es' ? 'Spanish' : row.language =='nl'  ? 'Dutch' : row.language}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column name="Geographical Area"  prop="place">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.place}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+                <!-- <ngx-datatable-column name="Geographical Area"  prop="place" *ngIf="selectedHeaderArea=='all'">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.place}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+           
+                <!-- <ngx-datatable-column name="Location" prop="role_name">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <-- <ng-content [innerHTML]="getLocation(row?.latlongt)">aa</ng-content> --
+                        <-- <div [innerHTML]="getLocation(row?.latlongt)"></div> --
+                        <-- <span [innerHTML]="getLocation(row?.latlongt)">aa</span> --
+                         <a [href]="getLocation(row?.latlongt)" target="_blank"> <img src="assets/images/location.svg"></a>
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+
+                <ngx-datatable-column name="Registration Date" prop="created">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.created | date:'yyyy-MM-dd'}} 
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column [maxWidth]="180" class="name_specific_col"
+                    name="{{'user.action' | transloco}}" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <div class="dropdown select_action">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li module="Admin" submodule="Access Control-User" accessType="add_edit" (click)="editForm(row)"><a
+                                        class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                </li>
+                                <li module="Admin" submodule="Access Control-User" accessType="delete" (click)="deletForm(row)">
+                                    <a class="dropdown-item" href="javascript:void(0);" >Delete</a>
+                                </li>
+                         
+                            </ul>
+                        </div>
+                   
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+
+                <ngx-datatable-footer>
+                    <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                        let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                        <div class="CstmPadding">
+                            <div>
+                                {{'showing'|transloco}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to' |
+                                    transloco}} {{ rowCount> curPage *
+                                    pageSize ? curPage * pageSize : rowCount}} {{'of' | transloco}} {{rowCount}}
+                                    {{'records'|transloco}}
+
+                            </div>
+                        </div>
+                        <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                            [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                            [page]="curPage" [size]="pageSize" [count]="rowCount"
+                            [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                        </datatable-pager>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ================================================ filter Modal ================================================ -->
+<!-- <div class="modal fade custom-popup" id="filter-popup_2" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Filter</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form [formGroup]="filterForm">
+                <div class="modal-body px-5 pt-4">
+                    <div class="form-box h-100 p-0 w-100 pt-2">
+                   
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="add_aggregate_input position-relative">
+                                    <label>Age</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                      <mat-select formControlName="age">
+                                        <mat-option value="0-4">0-4</mat-option>
+                                        <mat-option value="5-9">5-9</mat-option>
+                                        <mat-option value="10-14">10-14</mat-option>
+                                        <mat-option value="18-30">18-30</mat-option>
+                                        <mat-option value="30+">30+</mat-option>
+                                        <mat-option value="all">All</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row locationFilter">
+                            <div class="col-md-12">
+                                <div class="add_aggregate_input position-relative">
+                                    <label>Gender</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                      <mat-select formControlName="gender">
+                                        <mat-option value="male">Male</mat-option>
+                                        <mat-option value="female">Female</mat-option>
+                                        <mat-option value="other">Others</mat-option>
+                                        <mat-option value="all">All</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="selectedHeaderArea?.country=='all'">
+                            <div class="col-12">
+                                <div class="add_aggregate_input position-relative">
+                                    <label><span class="error-span"></span> Country</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                        <mat-select formControlName="country">
+                                            <mat-option value="all">All</mat-option>
+                                            <mat-option *ngFor="let item of allCountryList"
+                                                [value]="item.country_name">{{item.country_name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" (click)="onClickRestFilter()" [disabled]="!filterForm.valid">Reset</button>
+                    <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="onClickFilter()" [disabled]="!filterForm?.valid">Ok</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<!-- ================================================ filter Modal ================================================ -->
+
+
+
+<!-- <app-role-form  [data]="row"></app-role-form> -->
+<app-add-edit [data]="row" (eventList)="emitData($event)"></app-add-edit>
+

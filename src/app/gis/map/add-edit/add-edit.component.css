@@ -1,0 +1,3 @@
+::ng-deep .mat-form-field-disabled .mat-mdc-select-disabled {
+    color: #333;
+}

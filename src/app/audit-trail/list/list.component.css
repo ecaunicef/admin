@@ -1,0 +1,87 @@
+.profile_view {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.profile_view img {
+    width: 18px;
+    filter: invert(38%) sepia(1%) saturate(1437%) hue-rotate(314deg) brightness(99%) contrast(84%);
+    transition: all .3s ease-in-out;
+}
+
+.profile_view:hover img {
+    filter: invert(17%) sepia(17%) saturate(4970%) hue-rotate(217deg) brightness(93%) contrast(96%);
+}
+
+.auditHistory .modal-body {
+    max-height: 80vh;
+    overflow: auto;
+    height: 80vh;
+}
+
+.auditHistory .modal-body::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+.auditHistory .modal-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.auditHistory_list {
+    padding-left: 35px;
+}
+
+.auditHistory_list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.auditHistory_list ul li {
+    margin-bottom: 30px;
+}
+
+.auditHistory_list ul li:last-child {
+    margin-bottom: 0;
+}
+
+.auditHistory_list ul li p {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.auditHistory_list ul li p.pl-3 {
+    padding-left: 30px;
+}
+
+::ng-deep .auditTrailDataTable.ngxDatatable .ngx-datatable .visible {
+    height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+::ng-deep .auditTrailDataTable.ngxDatatable .ngx-datatable .datatable-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+::ng-deep .auditTrailDataTable.ngxDatatable .ngx-datatable .datatable-body {
+    min-height: calc(100% - 86px);
+    height: auto !important;
+}
+
+::ng-deep .auditTrailDataTable.ngxDatatable .ngx-datatable .datatable-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #ffffff;
+}
+
+@media screen and (max-width: 1600px) {
+    .profile_view img {
+        width: 15px;
+    }
+}

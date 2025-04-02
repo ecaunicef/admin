@@ -1,0 +1,67 @@
+.mainFooter {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 0;
+    transition: all .3s ease-in-out;
+}
+
+.mainFooter>.container-fluid {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.mainFooter .mainFooter__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left p {
+    font-family: var(--primaryFontFamily);
+    font-size: 0.857rem;
+    color: #ffffff;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p {
+    font-family: var(--primaryFontFamily);
+    font-size: 0.714rem;
+    color: #CECECE;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p span {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+@media screen and (max-width:1366px) {
+
+    .mainFooter .mainFooter__main .mainFooter__right p span {
+        font-size: 0.714rem;
+    }
+
+    .mainFooter .mainFooter__main .mainFooter__right p, .mainFooter .mainFooter__main .mainFooter__left p {
+        font-size: 0.643rem;
+    }
+
+    .mainFooter {
+        padding: 7px 0;
+    }
+}

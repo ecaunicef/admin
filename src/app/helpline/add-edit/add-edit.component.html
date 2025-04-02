@@ -1,0 +1,210 @@
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="helplineForm" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm(undefined)" matTooltip="{{ !showTooltip ? ('add') : ('close') }}" module="Admin" submodule="Access Control-User" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+        <div class="form-heading">
+           
+            <h5><span class="bg-white">{{titlePage}} Helpline</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-md-12 grey_boxAdd">
+                        <div class="add_aggregate_input position-relative px-0">
+                            <label class="geographical">By Geographical Area</label>
+                            <div class="w-100">
+                                <div class="pe-2">
+                                    <label class="gaLabel"><span class="error-span">*</span> Country</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                        <mat-select formControlName="place">
+                                            <!-- <mat-option *ngIf="countryList.length == 0" [value]="null">Select Country</mat-option> -->
+                                            <mat-option *ngFor="let country of countryList" [value]="country?.area_code">
+                                                {{ country?.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="w-50 ps-2">
+                                    <label class="gaLabel"><span class="error-span">*</span> District</label>
+                                     <mat-form-field class="example-full-width textarea-box">
+
+                                            <mat-select formControlName="area_level2">
+                                                <mat-option *ngIf="arealevel2List.length == 0" [value]="null">
+                                                    Select District
+                                                </mat-option>
+                                        
+                                                <mat-option *ngFor="let district of arealevel2List" [value]="district?.area_code">
+                                                    {{ district?.name }}
+                                                </mat-option>
+                                            </mat-select>
+
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- <div class="row">
+
+                    <div class="col-6">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span"></span> Place</label>
+                            <-- <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="place">                                    
+                                    <mat-option *ngFor="let item of allStatesRoles"
+                                        [value]="item.id">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field> --
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="place">                                    
+                                    <mat-option *ngFor="let country of countryList" [value]="country?.country_name">
+                                        {{ country?.country_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span"></span>District</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="district"  value="">
+                                <mat-error class="star error-span"
+                                    *ngIf="helplineForm.get('district')?.invalid && (helplineForm.get('district')?.dirty || helplineForm.get('district')?.touched)">
+                                    <div class="star error-span" *ngIf="helplineForm.get('district').errors?.required">
+                                        District is required
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div> -->
+               
+                <div class="row">
+                    <div class="col-6">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Helpline Number</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="helplinenumber"  value="" (keypress)="onlyAllowNumbers($event)">
+                                
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Helpline Category</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="classification_id">
+                                  <mat-option *ngFor="let cat of categoryList" [value]="cat.id">
+                                    {{ cat.classification_name }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+               
+             
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="add_aggregate_input position-relative">
+                                <label><span class="error-span">*</span> Emergency Service Status</label>
+                                <mat-form-field class="example-full-width textarea-box">
+                                    <mat-select formControlName="emergency_service">
+                                      <mat-option *ngFor="let em of emergencyService" [value]="em.value">
+                                        {{ em.name }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="add_aggregate_input position-relative">
+                                <label><span class="error-span">*</span> Name of Organization</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="organization" value="">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+            
+
+                        
+                 
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="add_aggregate_input position-relative">
+                                        <label>Address</label>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="add1"  value="">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+    
+                                <div class="col-6">
+                                    <div class="add_aggregate_input position-relative">
+                                        <label>Website URL</label>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="website"  value="">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                         
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="add_aggregate_input position-relative">
+                                        <label>Contact Number</label>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="tel1"  value="" (keypress)="onlyAllowNumbers($event)">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+    
+                                <div class="col-6">
+                                    <div class="add_aggregate_input position-relative">
+                                        <label> 
+                                            Email</label>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="email"  value="">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                     
+    
+                                <div class="col-12">
+                                    <div class="add_aggregate_input position-relative">
+                                        <label>Geolocation</label>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput formControlName="geolocation"  value="">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                </div>
+            </div>
+           
+            
+        
+        <div class="gallery-sidebar-button modal-footer-shadow text-center">
+            <button type="button" class="btn" [disabled]="!helplineForm.valid" *ngIf="!showEdit" (click)="createHelpline()">Add
+            </button>
+            <button type="button" class="btn" *ngIf="showEdit" [disabled]="!helplineForm.valid" (click)="updateHelpline()">Update
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="overlay"></div>
+
+

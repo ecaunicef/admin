@@ -1,0 +1,67 @@
+#Docker executor - node:18:15
+variables:
+  NODE_IMAGE: "node:20.11.1"  # Define the Node.js version here
+
+stages:
+  - dependencies
+  - build
+  - deploy
+
+install dependencies:
+  stage: dependencies
+  image: $NODE_IMAGE
+  tags:
+    - empdatamanager  
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules
+  script:
+    - npm ci
+  only:
+    refs:
+      - staging
+    changes:
+      - package-lock.json
+
+build app:
+  stage: build
+  image: $NODE_IMAGE
+  tags:
+    - empdatamanager
+  script:
+     - npm install -g @angular/cli
+     - ng build --base-href "/datamanager/"
+     - echo "BUILD SUCCESSFUL"
+  artifacts:
+    paths:
+      - dist/
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules
+    policy: pull    
+  only:
+     - staging
+
+deploy:
+  stage: deploy
+  tags:
+    - empdatamanager
+  dependencies:
+     - build app
+  before_script: 
+      - mkdir -p ~/.ssh
+      - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts #SSH_KNOWN_HOSTS = ssh-keygen 52.200.20.24 //itmcloudip
+      - echo -e "$SSH_KEY" > ~/.ssh/id_rsa     
+      - chmod 600 ~/.ssh/id_rsa     
+      - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'     
+  script:
+      - scp -r dist/* ubuntu@$SERVER_IP:/usr/local/bin/cicd/empoweru
+      - echo "FILES COPIED TO SERVER SUCCESSFUL"
+      - ssh ubuntu@$SERVER_IP "sh /usr/local/bin/cicd/empoweru/deployDatamanager.sh && exit"
+      - echo "DEPLOYED SUCCESSFUL"
+  environment:
+    name: staging
+  only:
+    - staging

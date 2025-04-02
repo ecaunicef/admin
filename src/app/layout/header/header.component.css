@@ -1,0 +1,57 @@
+.mainHeader {
+    padding: 30px 0;
+}
+
+.mainHeader > .container-fluid {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.mainHeader .mainHeader__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainHeader .mainHeader__main .mainHeader__left  {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainHeader .mainHeader__main .mainHeader__left .mainHeader__logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mainHeader .mainHeader__main .mainHeader__left .mainHeader__logo a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 90px;
+}
+
+.mainHeader .mainHeader__main .mainHeader__left .mainHeader__logo a img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+}
+.login_header {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+@media (min-width: 1600px) and (max-width: 1919px) {
+    .mainHeader {
+        padding: 20px 0;
+    }
+}
+
+@media screen and (max-width:1366px){
+    .login_header .mainHeader__main .mainHeader__left .mainHeader__logo a{
+        height: 70px;
+    }
+}

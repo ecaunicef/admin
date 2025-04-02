@@ -1,0 +1,200 @@
+.collapseButton {
+    vertical-align: text-top;
+}
+
+.static_table_area th,
+.static_table_area td {
+    padding: 1em;
+}
+
+.table_childs {
+    display: none;
+}
+
+.static_table_area .Table {
+    margin-left: 12em;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.static_table_area table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.static_table_area table tbody {
+    border: 1px solid #b0b0b0;
+}
+
+.static_table_area table tbody tbody {
+    border: none;
+}
+
+.static_table_area table th {
+    background-color: #EAEAF5;
+}
+
+.static_table_area table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.static_table_area table tr:nth-child(odd),
+.sub-level table tbody tr:nth-child(odd) {
+    background-color: #F9F9F9;
+}
+
+.static_table_area table tr input {
+    border: 1px solid #B6B6B6;
+    border-radius: 0;
+}
+
+.static_table_area table tr input:checked {
+    background-color: var(--primary-color);
+}
+
+/* .sub-level table tbody tr:last-child {
+    border-bottom: none !important;
+} */
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    line-height: 150%;
+}
+
+table th,
+table .expand {
+    color: #333;
+    padding: 10px;
+    background-color: #F9F9F9;
+}
+
+table th:not(:first-child),
+table td:not(:first-child) {
+    width: 130px !important;
+}
+
+table .expand {
+    cursor: pointer;
+}
+
+.sub-level {
+    display: none;
+}
+
+.static_table_area table thead tr th.blank,
+.static_table_area table tbody tr td.blank,
+.static_table_area table tbody tr td.expand,
+.static_table_area table tbody tr td.open_childs {
+    width: 30px !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+.static_table_area table thead tr th:nth-child(2),
+.static_table_area table tbody tr td:nth-child(2) {
+    width: 150px !important;
+}
+
+.static_table_area table th:not(:first-child) {
+    width: auto !important;
+}
+
+.selectOptionAll {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 10px 16px;
+}
+
+.selectOptionAll:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+::ng-deep .selectOptionAll .mat-mdc-checkbox {
+    width: 100%;
+}
+
+::ng-deep .selectOptionAll .mat-accent {
+    --mat-option-selected-state-label-text-color: #2a2b6a;
+}
+
+::ng-deep .selectOptionAll .mat-mdc-checkbox .mdc-form-field {
+    width: 100%;
+}
+
+::ng-deep .selectOptionAll .mat-mdc-checkbox .mdc-checkbox__ripple,
+::ng-deep .selectOptionAll .mat-mdc-checkbox-touch-target {
+    display: none;
+}
+
+::ng-deep .selectOptionAll .mdc-checkbox .mdc-checkbox__native-control {
+    width: 14px;
+    height: 14px;
+}
+
+::ng-deep .selectOptionAll .mdc-checkbox .mdc-checkbox__background {
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 0;
+    border: 2px solid rgba(0, 0, 0, 0.54) !important;
+}
+
+::ng-deep .selectOptionAll .mdc-checkbox {
+    padding: 0 !important;
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    margin-right: 12px !important;
+}
+
+::ng-deep .selectOptionAll .mdc-label {
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+.accordion-table thead {
+    border: none;
+}
+.accordion-table tbody {
+    border: none !important;
+}
+.accordion-table tbody:nth-child(even) tr td, .accordion-table tbody:nth-child(even) tr td.expand.open_childs, .accordion-table tbody:nth-child(odd) tr.sub-level td table:nth-child(odd) tbody tr td{
+    background-color: #fff;
+}
+.accordion-table tbody:nth-child(even) tr.sub-level td table:nth-child(odd) tbody tr td{
+    background-color: #F9F9F9 !important;
+}
+/* .accordion-table tbody:nth-child(odd) tr.sub-level td table:nth-child(even) tbody tr td */
+@media screen and (max-width:1366px) {
+
+    table th,
+    table td {
+        width: 102px !important;
+    }
+
+    .static_table_area th,
+    .static_table_area td {
+        font-size: 0.857rem;
+    }
+
+    .static_table_area table thead tr th.blank img,
+    .static_table_area table tbody tr td.blank img,
+    .static_table_area table tbody tr td.expand img,
+    .static_table_area table tbody tr td.open_childs img {
+        width: 14px;
+    }
+}

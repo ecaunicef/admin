@@ -1,0 +1,32 @@
+.gap-49 {
+    gap: 49px;
+}
+::ng-deep .checkbox_div .mdc-form-field .mdc-label{
+    margin-bottom: 0;   
+}
+
+.filter_drop .form-box .add_aggregate_input.checkbox_div{
+    padding:0 30px;
+}
+
+::ng-deep .checkbox_div .mdc-checkbox {
+    padding-right: 0;
+    padding-left: 0;
+}
+::ng-deep .checkbox_div .mdc-checkbox .mdc-checkbox__background{
+    left: 0;
+}
+::ng-deep .checkbox_div .mat-ripple, ::ng-deep .checkbox_div .mat-mdc-checkbox .mdc-checkbox__ripple{
+    display: none;
+}
+::ng-deep .filter_drop .mat-mdc-form-field-flex {
+    align-items: center;
+}
+
+/* ------------------------------------------------------------------------ Responsive Start ------------------------------------------------------------------------ */
+@media only screen and (max-width: 1450px) {
+    .gap-49{
+        gap: 27px;
+    }
+}
+

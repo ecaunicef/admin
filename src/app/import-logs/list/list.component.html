@@ -1,0 +1,122 @@
+<div class="mainContent dataEntryPage">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li class="d-flex align-items-center">
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing"> {{'show' | transloco}}</span>
+                            <label class="showDigits" > 
+                                <select (change)="changePageSize()" id="mySelectId">
+                                    <option value="10" selected>10</option>
+                                    <option value="25" >25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="{{'search'| transloco}}" [(ngModel)]="search" (keyup)="updateFilter($event)" (search)="clearAllSearch()" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="ngxDatatable ">
+
+
+                <ngx-datatable class="material" [rows]="rows"  [headerHeight]="45" [columnMode]='"force"'
+                     [footerHeight]="40" [rowHeight]="'auto'"
+                    [count]="page.totalElements" [offset]="page.pageNumber" [selected]="selected" [limit]="page.size"
+                    [selectionType]="SelectionType.checkbox" (select)="onSelect($event)" 
+                    [messages]="{emptyMessage:'No data'}" [count]="page.totalElements"  [limit]="10" >
+
+
+                    <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                        [sortable]="false" [resizeable]="false">
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{rowIndex+1}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.log_file' | transloco}}" [sortable]="true"  prop="filename">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row?.error_file}}" matTooltipPosition="left">{{row?.error_file}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.imported_record' | transloco}}" [maxWidth]="150" [sortable]="true"  prop="imported_records">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row?.file_detail?.imported_records}}" matTooltipPosition="left">{{row?.file_detail?.imported_records}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.updated_record' | transloco}}" [maxWidth]="150" [sortable]="true"  prop="updated_records">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row?.file_detail?.updated_records}}" matTooltipPosition="left">{{row?.file_detail?.updated_records}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.error_record' | transloco}}" [maxWidth]="100" [sortable]="true"  prop="error">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row?.file_detail?.error}}" matTooltipPosition="left">{{row?.file_detail?.error}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.total_records' | transloco}}" [maxWidth]="100" [sortable]="true"  prop="total_records">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row?.file_detail?.total_records}}" matTooltipPosition="left">{{row?.file_detail?.total_records}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'log.created_at' | transloco}}" [maxWidth]="120" [sortable]="true"  prop="createdAt">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <span class="characterLimit oneLine" matTooltip="{{row.createdAt | date}}" matTooltipPosition="left">{{row.createdAt | date}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [maxWidth]="180" [minWidth]="170" name="Action" [sortable]="false">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <div class="dropdown select_action">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{'select_action' | transloco}}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li (click)="downloadData(row)"><a class="dropdown-item" href="javascript:void(0);" >Download</a></li>
+                                    <li accessControl module="Logs" submodule="Import Logs" accessType="delete"  (click)="deleteLog(row)" ><a class="dropdown-item" href="javascript:void(0);">Delete</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+
+                    <ngx-datatable-footer>
+                        <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                            <div class="CstmPadding">
+                                <div>
+                                    {{'showing' | transloco}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} to {{ rowCount>
+                                        curPage
+                                        *
+                                        pageSize ? curPage * pageSize : rowCount}} of
+                                        {{rowCount}}
+                                        {{'records' | transloco}}
+                                </div>
+                            </div>
+                           
+
+                            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                            [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                            [page]="curPage" [size]="pageSize" [count]="rowCount"
+                            [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                        </datatable-pager>
+
+
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>

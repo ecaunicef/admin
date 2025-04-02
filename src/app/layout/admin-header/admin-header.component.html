@@ -1,0 +1,414 @@
+<header class="mainHeader">
+    <div class="mainHeader__top">
+        <div class="container-fluid">
+            <div class="mainHeader__main">
+                <div class="mainHeader__left">
+                    <div class="mainHeader__logo">
+                        <a  [routerLink]="['/landing']"><img src="assets/images/logo-admin.jpg" /></a>
+                        <a [routerLink]="['/landing']" ><img src="assets/images/UNICEF_Header_Logo.png"></a>
+                        
+                    </div>
+                </div>
+            <form [formGroup]="AreaForm"  *ngIf="!['/credential', '/helpline', '/area-list', '/category', '/blog', '/classification','/customize','/language','/landing', '/mood-mapper'].includes(route.url)">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="selectCountry form-box pt-0 px-0">
+                        <div class="headAreaList ta_center">
+                            <label>Geographical Area</label>
+                            <h4 class="mb-0"> 
+                                <!-- <span>country{{':'+selectedCountry?.length}}{{Object.keys(seletedDistrictCount).length}}</span>  -->
+                                
+                                <span class="pointer"   data-bs-toggle="modal" data-bs-target="#areaList">
+                                    {{ selectedCountry.length == 1 ? viewSelectedCountryDistrict : (selectAllList)?'All area':viewSelectedCountryDistrict }}
+                                    <!-- {{(selectAllList)?'All area':viewSelectedCountryDistrict}} -->
+                                </span>
+                                <!-- :selectedCountry[0]?.country_name+'(+'+seletedDistrictCount[selectedCountry[0]?.country_id]?.length+' district)' -->
+                                <a href="javascript:void(0)"  (click)="onOpenAreaPopup()"><img src="assets/images/arrow_upp.svg" data-bs-toggle="modal" data-bs-target="#areaList"></a></h4>
+                            <!-- <mat-form-field class="example-full-width textarea-box">
+                                <mat-select  formControlName="country" (selectionChange)="onSelectCountry()">
+                                    <mat-option value="all">All</mat-op tion>
+                                    <mat-option *ngFor="let country of countryList" [value]="country?.country_name">
+                                        {{ country?.country_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                        </div>
+                    </div>
+                    <!-- <div class="selectCountry form-box pt-3 px-0 pb-2">
+                        <div class="add_aggregate_input position-relative d-flex align-items-start flex-column">
+                            <label>District</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select  formControlName="district" (selectionChange)="onSelectDistrict()">
+                                    <mat-option value="all">All</mat-option>
+                                    <mat-option *ngFor="let district of districtList" [value]="district.district_id">
+                                        {{district.district_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+                </div>
+
+            </form>
+                <div class="mainHeader__right">
+                  
+                    <div class="dropdown header_menu">
+                        <button class="dropdown-toggle userImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/sidebar/user-clone.svg" (click)="toggleUserAdminOption()" matTooltip="{{userDetails?.data?.name}}">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#profile_popup"><img class="w12" src="assets/images/sidebar/user-clone.svg" alt="" /> {{'profile' | transloco}}</a>
+                            </li>
+                            <li (click)="resetForm()">
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><img src="assets/images/lock-dropdown.svg" alt="" /> {{'change_password' | transloco}}</a>
+                            </li>
+                            <li class="logout" (click)="logout()">
+                                <a href="javascript:void(0)"><img src="assets/images/logout-dropdown.svg" alt="" /> {{'logout' | transloco}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="mainHeader__bottom" [ngClass]="route.url == '/landing' ? 'd-none' : ''">
+        <div class="container-fluid h-100">
+            <div class="mainHeader__main h-100">
+                <div class="mainHeader__center">
+                    <h3 class="d-flex gap-1"><div class="breadcrumbList" [innerHTML]="titleData.breadcrumb"> </div> <span *ngIf="route.url == '/summary' ">{{userDetails?.data?.name}}</span></h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="changePasswordModal modal fade addQuestion export-popup custom-popup" id="changePasswordModal" tabindex="-1"
+    aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="changePasswordModalLabel">{{'change_password' | transloco}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <img src="assets/images/close.svg" alt="" /> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="w-100" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+                    <div class="mb-4 position-relative">
+                        <input [type]="!newpassword ? 'password' : 'text'" class="form-control" formControlName="currentPassword"
+                            placeholder=" {{'curr_pass' | transloco}}">
+                        <div *ngIf="changePasswordForm.controls.currentPassword.touched && changePasswordForm.controls.currentPassword.errors"
+                            class="error_login">
+                            <div *ngIf="changePasswordForm.controls.currentPassword.errors.required">
+                                {{'currpassword_required' | transloco}}</div>
+                        </div>
+                        <div class="password_hide" (click)="newpassword = !newpassword">
+                            <img
+                                [src]="!newpassword ? 'assets/images/eyeClose.svg' : 'assets/images/eyeOpen.svg'">
+                        </div>
+                    </div>
+                    <div class="mb-4 position-relative">
+                        <input [type]="!currentpassword ? 'password' : 'text'" class="form-control" formControlName="newPassword"
+                            placeholder="{{'new_pass' | transloco}}">
+                        <div *ngIf="changePasswordForm.controls.newPassword.invalid && (changePasswordForm.controls.newPassword.dirty || changePasswordForm.controls.newPassword.touched)"
+                            class="error_login">
+                            <div *ngIf="changePasswordForm.controls.newPassword.errors.required"> {{'new_pass_required' | transloco}}</div>
+                            <div *ngIf="!changePasswordForm.controls.newPassword.errors.minlength && !changePasswordForm.controls.newPassword.errors.maxlength && !changePasswordForm.controls.newPassword.errors.minlength && changePasswordForm.controls.newPassword.errors.pattern">
+                                {{'pass_length' | transloco}} 
+                            </div>
+                            
+                        </div>
+                        <div class="password_hide" (click)="currentpassword = !currentpassword">
+                            <img
+                                [src]="!currentpassword ? 'assets/images/eyeClose.svg' : 'assets/images/eyeOpen.svg'">
+                        </div>
+                    </div>
+                    <div class="mb-4 position-relative">
+                        <input [type]="!confirmpassword ? 'password' : 'text'" class="form-control" formControlName="confirmPassword"
+                            placeholder="{{'con_pass'| transloco}}">
+
+                        <div *ngIf="changePasswordForm.controls.confirmPassword.invalid && (changePasswordForm.controls.confirmPassword.dirty || changePasswordForm.controls.confirmPassword.touched)"
+                            class="error_login">
+                            <div *ngIf="changePasswordForm.controls.confirmPassword.errors.required">{{'new_pass_required' | transloco}}</div>
+                            <div ngif="myForm.get('confirmPassword').hasError('passwordMismatch')">{{'please_make_sure' | transloco}}</div>
+                        </div>
+                        <div class="password_hide" (click)="confirmpassword = !confirmpassword">
+                            <img
+                                [src]="!confirmpassword ? 'assets/images/eyeClose.svg' : 'assets/images/eyeOpen.svg'">
+                        </div>
+                    </div>
+                    <button type="submit {{changePasswordForm.invalid ? 'disabled': ''}}" class="btn"
+                        [disabled]="changePasswordForm.invalid" class="btn btn-secondary w-100">{{'change_password' |
+                        transloco}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =============Profile modal============== -->
+<div class="modal fade addQuestion export-popup custom-popup" id="profile_popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title d-flex align-items-center" id="exampleModalLabel">{{'profile' | transloco}} <img
+                        src="assets/images/sidebar/editable.svg" alt="" class="edit-button c-pointer ms-2 brightFilter"
+                         (click)="filterowner()"></h4>
+                <button type="button" data-bs-dismiss="modal" class="btn-close"></button>                
+            </div>
+            <div class="modal-body">
+                <div class="prf_modal">
+                    <div class="prf_img">
+                        <ng-container *ngIf="userDetails?.data?.data.img!== null">
+                            <img [src]="uploadedPath+userDetails?.data?.data?.img" alt="">
+                        </ng-container>
+
+                    <ng-container *ngIf="uploadedPath+userDetails?.data?.data?.img == null || uploadedPath+userDetails?.data?.data?.img == undefined">
+                            <img src="assets/images/sidebar/profile.svg" alt="">
+                        </ng-container>
+                    </div>
+                    <div class="prf_details">
+                        <div class="editable-cell">
+                            <div class="editable-field">
+                                <label for="" class="prf_label">{{'name' | transloco}}</label>
+                                <div class="edit_input">
+                                    <input class="editable-input" type="text" value={{userDetails?.data?.data?.name}}
+                                        readonly />
+                                </div>
+                            </div>
+                            <div class="editable-field">
+                                <label for="" class="prf_label">{{'email' | transloco}}</label>
+                                <div class="edit_input">
+                                    <input class="editable-input" type="text" value={{userDetails?.data?.data?.email}}
+                                        readonly />
+                                </div>
+                            </div>
+                            <!-- <div class="editable-field">
+                                <label for="" class="prf_label">{{'phone' | transloco}}</label>
+                                <div class="edit_input">
+                                    <input class="editable-input" type="text" value={{userDetails?.data?.data?.phone}}
+                                        readonly />
+                                </div>
+                            </div> -->
+                            <!-- <div class="editable-field">
+                                <label for="" class="prf_label">SM Unit</label>
+                                <div class="edit_input">
+                                    <input class="editable-input" type="text"
+                                        value={{userDetails?.data?.departmentName}} readonly />
+                                </div>
+                            </div>
+                            <div class="editable-field">
+                                <label for="" class="prf_label">{{'designation' | transloco}}</label>
+                                <div class="edit_input">
+                                    <input class="editable-input" type="text" value={{userDetails?.data?.designation}}
+                                        readonly />
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade custom-popup custombackdrop" id="edit_profile_popup" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Edit Profile</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <img src="../assets/images/close.svg" alt=""> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="edit_prf_modal">
+                    <div class="prf_details">
+                        <div class="editable-cell mb-2">
+                            <div class="editable-field">
+                                <label for="" class="prf_label">{{'name' | transloco}}</label>
+                                <div class="edit_prf_input">
+                                    <input type="text"
+                                        value={{userDetails?.data?.data?.name}} readonly (change)="handleProfileUserDetailsInput('name',$event?.target?.value)">
+                                </div>
+
+                            </div>
+                            <!-- <div class="editable-field">
+                                <label for="" class="prf_label">{{'phone' | transloco}}</label>
+                                <div class="edit_prf_input">
+                                    <input type="text"
+                                        value={{userDetails?.data?.data?.phone}} (change)="handleProfileUserDetailsInput('phone',$event?.target?.value)">
+                                </div>
+                            </div> -->
+                            <!-- <div class="editable-field">
+                                <label for="" class="prf_label">{{'department' | transloco}}</label>
+                                <div class="edit_prf_input">
+
+                                    <input type="text" (keyup)="handleProfileUserDetailsInput('department',$event.target.value)" value={{userDetails?.data?.departmentName}}>
+                                </div>
+                            </div>
+                            <div class="editable-field">
+                                <label for="" class="prf_label">{{'designation' | transloco}}</label>
+                                <div class="edit_prf_input">
+                                    <input type="text" (keyup)="handleProfileUserDetailsInput('designation',$event.target.value)" value={{userDetails?.data?.designation}}>
+                                </div>
+                            </div> -->
+
+                            <div class="editable-field">
+                                <label for="" class="prf_label">Uploaded Profile Photo</label>
+                                <div class="upload_input-group">
+                                    <!-- <span>{{userDetails?.data?.img|json}}</span> -->
+
+                                    <ng-container *ngIf="userDetails?.data?.img!=null">
+                                        <span>{{userDetails?.data?.img}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="userDetails?.data?.img==null">
+                                        <span>No Uploaded Image</span>
+                                    </ng-container>
+                                    <input type="file" (change)="handleFileInput($event)" class="form-control"
+                                        id="upload_prf_img" aria-describedby="inputGroupFileAddon04"
+                                        aria-label="Upload">
+                                </div>
+                                <p class="ap_documentSize"><i>(Image size should not be more than 2 MB, jpg and png)</i>
+                                </p>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="save_btn_area text-center">
+                            <!-- <button (click)="handleSaveProfile()">Save</button> -->
+                            <button (click)="handleSaveProfile()" >Save </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- new model -->
+<div class="modal fade custom-popup custombackdrop" id="OTP-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">OTP Code Verification</h4>
+                <button type="button" (click)="closeOtpModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="edit_prf_modal">
+                    <div class="prf_details">
+                        <div class="editable-cell">
+                            <p class="mb-3">Enter the OTP code sent to your email address:</p>
+                            <form class="form-box p-0" [formGroup]="otpForm">
+                                <div class="add_aggregate_input position-relative m-0">
+                                    <label>OTP Code</label>
+                                    <mat-form-field class="example-full-width textarea-box mb-0">
+                                        <input matInput id="otpClear" formControlName="otp" >
+                                    </mat-form-field>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="save_btn_area text-center">
+                            <button [disabled]="!otpForm.valid" (click)="verifyOtp()">Verify OTP Code</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- =======================AREA MODAL BOX========================== -->
+<div class="modal fade custom-popup" id="areaList" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Geographical Area</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onOpenAreaPopup()"></button>
+            </div>
+            <div class="modal-body d-flex p-0 flex-column">
+           
+                <div>
+                    <div class="search_box text-center sbSpace">
+                        <div class="inner_search">
+                            <input type="search" (input)="searchArea($event)" id="search_id" placeholder="Search">
+                            <img src="assets/images/search.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start tree_values pb-3">
+                        <div class="nav flex-column w-100 areaNav" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <div class="selectsection mb-0">
+                                <button class="nav-link d-flex align-items-center m-0 gap-3">
+                                    <mat-checkbox (click)="selectAllcountry()"  [checked]="selectAllList" [disabled]="isViewChecked?true:false">All Countries</mat-checkbox>
+                                    <mat-checkbox (click)="viewSelectedCountry()" [checked]="isViewChecked">View Selected</mat-checkbox>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tree_values treeList" id="menu-list">
+                        <ul class="right_border">
+                            <!-- folder-open -->
+                            <li class="folder level" [ngClass]="country?.toggle ? 'folder-open' : ''"  *ngFor="let country of countryList; let i = index">
+                                <div class="d-flex align-items-center">
+                                    <span class="caretArrow" (click)="togglecaret(country)"><img src="assets/images/tree_arrow.svg"/></span> 
+                                    <span><button class="nav-link d-flex align-items-center justify-content-between">
+                                        <mat-checkbox   (click)="toogleCountry(country?.districts,country,$event)" [checked]="country?.active" [disabled]="isViewChecked?true:false"> {{ country?.country_name }} </mat-checkbox>
+                                    </button> </span>
+                                </div>
+                                <ul>
+                                    <li class="level no-children" *ngFor="let district of country?.districts">
+                                        <div class="d-flex align-items-center">
+                                            <span><button class="nav-link d-flex align-items-center justify-content-between" [ngClass]="(isViewChecked)?'cursorNone':(selectedCountry?.length>1)?'cursorNone' : ''">
+                                                    <mat-checkbox [disabled]="(isViewChecked)?true:(selectedCountry?.length>1)?true:isDistrictSelected(country)"   [checked]="district?.active" (click)="onCheckDistrict(country,district,$event)">{{district?.district_name}}</mat-checkbox>
+                                                </button> </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!-- <ul>
+                                    <li class="folder level folder-open">
+                                        <div class="d-flex align-items-center">
+                                            <span class="caretArrow"><img src="assets/images/tree_arrow.svg"/></span> 
+                                            <span><button class="nav-link d-flex align-items-center justify-content-between">
+                                                <mat-checkbox>Blowing Point</mat-checkbox>
+                                            </button> </span>
+                                        </div>
+                                        <ul>
+                                            <li class="no-children">
+                                                <div class="d-flex align-items-center">
+                                                    <span><button class="nav-link d-flex align-items-center justify-content-between">
+                                                        <mat-checkbox>Blowing Children</mat-checkbox>
+                                                    </button> </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul> -->
+                            </li>
+                        
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center" (click)="onCloseAreaModel()">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  [disabled]="(selectedCountry?.length==0)?(this.ObjisDistrictActive.length>0?false:true):false">OK</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- =======================AREA MODAL BOX========================== -->
+

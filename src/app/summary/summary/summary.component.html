@@ -1,0 +1,390 @@
+<div class="mainContent custmBg summarySection">
+  <div class="container-fluid px-0 h-100">
+    <div class="row mx-0">
+      <div class="top_area">
+        <ul class="state-overview justify-content-between">
+          <li class="columnArea">
+            <h4 class="cardName">Mobile App Users</h4>
+            <div class="card">
+              <div class="symbol terques">
+                <img class="img-fluid" src="assets/images/user_icon.svg">
+
+              </div>
+              <div class="value_area w-100">
+                <div class="value">
+                  <h1 class="count">{{data.totalUsers}}</h1>
+                  <p>Registered (#)</p>
+                </div>
+                <!-- <div class="value">
+                                          <h1 class="count">{{data.totalUsersLast30Days}}</h1>
+                                          <p>New Users <br> <span>(Past 30 days)</span></p>
+                                        </div> -->
+              </div>
+
+            </div>
+          </li>
+          <li class="columnArea">
+            <h4 class="cardName">Counselling</h4>
+            <div class="card">
+              <div class="symbol red">
+                <img class="img-fluid" src="assets/images/dash_counse.svg">
+              </div>
+              <div class="value_area">
+                <div class="value custm_border counsellingPadding ps-0">
+                  <h1 class="count">{{data.totalCounsellings}}</h1>
+                  <p>Requested (#)</p>
+                </div>
+                <div class="value custm_border counsellingPadding">
+                  <h1 class="count">{{data.closedCounsellings}} </h1>
+                  <p>Closed (#) <br/><span>(Past 30 days)</span></p>
+                </div>
+                <div class="value custm_border counsellingPadding">
+                  <h1 class="count">{{ data.turnOverTime }}</h1>
+                  <p>Turnover Time <br/><span>(Days)</span></p>
+                </div>
+                <div class="value counsellingPadding pe-0 d-flex align-items-center lastValue">
+                  <h1 class="count fontRed">{{ data.counsellingGivenChildren }}</h1>
+                  <p>Given to Children (#)</p>
+                  <!-- <span>( {{ data.counsellingGivenChildren }}/{{ data.counsellingGivenAll }})</span> -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="columnArea">
+            <h4 class="cardName">Feedback</h4>
+            <div class="card">
+              <div class="symbol blue">
+                <img class="img-fluid" src="assets/images/dash_feed.svg">
+              </div>
+              <div class="value_area w-100">
+                <div class="value">
+                  <h1 class="count2">{{data.totalFeedbacks}}</h1>
+                  <p>Received (#)</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <div class="col-md-3">
+                              <div class="card">
+                                <div class="symbol yellow">
+                                    <img src="assets/images/dash_feed.svg">
+                                </div>
+                                <div class="value">
+                                  <h1 class="count5">{{data.broadcasts}}</h1>
+                                  <p>Broadcast</p>
+                                </div>
+                              </div>
+                            </div> -->
+        </ul>
+      </div>
+      <div class="chart_section d-flex px-0 flex-wrap">
+        <div class="col-md-6">
+          <div class="chart_box" #chartBox id='user_chart'>
+            <div class="user_head">
+              <h4>Users</h4>
+            </div>
+            <div class="detail_area d-flex align-items-center">
+              <div class="switch_date d-flex align-items-center">
+                <!-- <div class="toggle_btn inner_toggle d-flex align-items-center">
+                                          <p for="" class="me-2">By Gender</p>
+                                          <div class="form-check form-switch">
+                                          <input class="form-check-input"
+                                           type="checkbox" role="switch"
+                                            id="flexSwitchCheckDefault"
+                                            [(ngModel)]="isUserChecked" 
+                                            (change)="onUserSwitchChange($event)"
+                                            >
+                                          </div>
+                                          <p for="" class="ms-2">By Age Group Group</p>
+                                          </div> -->
+                <div class="person_detail p-0 form-box d-flex align-items-center">
+                  <!-- <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                                              <label><span class="error-span"></span>Gender</label>
+                                              <mat-form-field appearance="fill">
+                                                <mat-select [(value)]="selectedGender">
+                                                  <mat-option *ngFor="let gender of genderOptions" [value]="gender">
+                                                    {{ gender }}
+                                                  </mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+    
+                                            </div> -->
+                  <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                    <label><span class="error-span"></span>Age Group</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select [(value)]="selectedAgeGroup" (selectionChange)="onChangeOnAgeGroup()" placeholder="Select Age">
+                        <mat-option *ngFor="let ageGroup of ageGroupOptions" [value]="ageGroup.value">
+                          {{ ageGroup.lebel }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- <div class="person_detail p-0 form-box d-flex align-items-center mct_pipe">
+                  <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                    <label><span class="error-span"></span>Gender</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select value="male">
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                        <mat-option value="other">Other</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+
+
+
+
+
+                <div class="form-box mct_pipe pt-0">
+                  <div class="add_aggregate_input position-relative multiSelectDate">
+                    <label class="pointer" (click)="rangePicker1.open()"><span class="error-span"></span>Date Range</label>
+                    <mat-form-field class="example-full-width textarea-box pointer" (click)="rangePicker1.open()">
+                      <mat-date-range-input [rangePicker]="rangePicker1" [max]="todayDate">
+                        <input matStartDate placeholder="Start date"  readonly [(ngModel)]="startUserDate" />
+                        <input matEndDate placeholder="End date" readonly [(ngModel)]="endUserDate" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matIconSuffix [for]="rangePicker1"></mat-datepicker-toggle>
+                      <mat-date-range-picker #rangePicker1>
+                        <mat-date-range-picker-actions>
+                          <button mat-button matDateRangePickerCancel>Cancel</button>
+                          <button mat-raised-button matDateRangePickerApply (click)="ApplyUserDate()">Apply</button>
+                        </mat-date-range-picker-actions>
+                      </mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown changing_charts ms-auto" id="user_toggle_button" *ngIf="userChartData.length > 0">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="assets/images/charts/chart-menu.svg" alt="" class=changing_chart_img>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('line', 'user-chart')"><img src="assets/images/charts/chart-1.svg"
+                        alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('column', 'user-chart')"><img src="assets/images/charts/chart-2.svg"
+                        alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('bar', 'user-chart')"><img
+                        src="assets/images/charts/chart-3.svg" alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('doughnut', 'user-chart')"><img src="assets/images/charts/donut-chart.svg"
+                        alt=""></a></li>
+
+
+                  <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('pie', 'user-chart')"><img
+                        src="assets/images/charts/chart-4.svg" alt=""></a></li>
+
+                  <li (click)="downloadImage('user_chart')"><a class="dropdown-item" href="javascript::void(0)"><img
+                        src="assets/images/charts/chart-11.svg" alt=""></a></li>
+
+                </ul>
+              </div>
+            </div>
+
+
+            <div class="dynamic_chart text-center" id="user-chart">
+              <!-- <img src="assets/images/dummy.png" alt=""> -->
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="chart_box ms-auto" id='counselling_chart' #chartBox>
+            <div class="user_head">
+              <h4>Counselling</h4>
+            </div>
+
+            <div class="detail_area d-flex align-items-center">
+              <div class="switch_date d-flex align-items-center">
+
+                <div class="person_detail p-0 form-box d-flex align-items-center">
+                  <!-- <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                                    <label><span class="error-span"></span>Gender</label>
+                                    <mat-form-field appearance="fill">
+                                      <mat-select [(value)]="selectedGender2">
+                                        <mat-option *ngFor="let gender of genderOptions" [value]="gender">
+                                          {{ gender }}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+
+                                  </div> -->
+                  <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                    <label>Age Group</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select [(value)]="selectedAgeGroup2" (selectionChange)="onChangleAgeGroup()" placeholder="Select Age">
+                        <mat-option *ngFor="let ageGroup of ageGroupOptions" [value]="ageGroup.value">
+                          {{ ageGroup.lebel }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+
+                  </div>
+                </div>
+                <div class="form-box mct_pipe pt-0">
+                  <div class="add_aggregate_input position-relative multiSelectDate">
+
+                    <label class="pointer" (click)="rangePicker2.open()">Date Range</label>
+                    <mat-form-field class="example-full-width textarea-box pointer" (click)="rangePicker2.open()">
+                      <mat-date-range-input [rangePicker]="rangePicker2" [max]="todayDate">
+                        <input matStartDate placeholder="Start date" readonly [(ngModel)]="startDate" />
+                        <input matEndDate placeholder="End date" readonly [(ngModel)]="endDate" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matIconSuffix [for]="rangePicker2"></mat-datepicker-toggle>
+                      <mat-date-range-picker #rangePicker2>
+                        <mat-date-range-picker-actions>
+                          <button mat-button matDateRangePickerCancel>Cancel</button>
+                          <button mat-raised-button matDateRangePickerApply
+                            (click)="ApplyCounsellingDate()">Apply</button>
+                        </mat-date-range-picker-actions>
+                      </mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown changing_charts ms-auto" id="counselling_toggle_button"
+                *ngIf="counsellingChartData.length > 0">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="assets/images/charts/chart-menu.svg" alt="" class=changing_chart_img>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('line', 'counselling-chart')"><img src="assets/images/charts/chart-1.svg"
+                        alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('column', 'counselling-chart')"><img src="assets/images/charts/chart-2.svg"
+                        alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('bar', 'counselling-chart')"><img src="assets/images/charts/chart-3.svg"
+                        alt=""></a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('doughnut', 'counselling-chart')"><img
+                        src="assets/images/charts/donut-chart.svg" alt=""></a></li>
+
+
+                  <li><a class="dropdown-item" href="javascript:void(0)"
+                      (click)="switchChart('pie', 'counselling-chart')"><img src="assets/images/charts/chart-4.svg"
+                        alt=""></a></li>
+
+                  <li (click)="downloadImage('counselling_chart')"><a class="dropdown-item"
+                      href="javascript::void(0)"><img src="assets/images/charts/chart-11.svg" alt=""></a></li>
+
+                </ul>
+              </div>
+            </div>
+
+            <div class="dynamic_chart text-center" id="counselling-chart">
+              <!-- <img src="assets/images/dummy2.png" alt="" class="img-fluid">  -->
+
+              <div class="no-data h-100 d-flex align-items-center justify-content-center" *ngIf="counsellingChartData.length === 0">
+                <p>No data</p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="chart_box w-100 px-0" #chartBox>
+            <div class="user_head">
+              <h4>Mood Tracker</h4>
+            </div>
+
+            <div class="detail_area d-flex align-items-center">
+              <div class="switch_date d-flex align-items-center">
+                <div class="person_detail p-0 form-box d-flex align-items-center">
+                  <!-- <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                                  <label><span class="error-span"></span>Gender</label>
+                                  <mat-form-field appearance="fill">
+                                    <mat-select [(value)]="selectedGender3">
+                                      <mat-option *ngFor="let gender of genderOptions" [value]="gender">
+                                        {{ gender }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+
+                                </div> -->
+                  <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                    <label><span class="error-span"></span>Age Group</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select [(value)]="selectedAgeGroup3" (selectionChange)="onSelectionChangeAgeGroup3()" placeholder="Select Age">
+                        <mat-option *ngFor="let ageGroup of ageGroupOptions" [value]="ageGroup.value">
+                          {{ ageGroup.lebel}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+
+                  </div>
+                </div>
+                
+                <div class="person_detail p-0 form-box d-flex align-items-center mct_pipe">
+                  <div class="add_aggregate_input position-relative d-flex flex-column align-items-start">
+                    <label><span class="error-span"></span>Periodically</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select [(ngModel)]="periodicallyData" (selectionChange)="onChangeSelection()">
+                        <mat-option value="monthly">Monthly</mat-option>
+                        <mat-option value="daily">Daily</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="form-box mct_pipe pt-0">
+                  <div class="add_aggregate_input position-relative multiSelectDate">
+                    <label class="pointer" (click)="rangePicker.open()"><span class="error-span"></span>Date Range</label>
+                    <mat-form-field class="example-full-width textarea-box pointer" (click)="rangePicker.open()">
+                      <!-- Bind formControl to mat-date-range-input for setting and reading values -->
+                      <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="dateRangeForm" [max]="todayDate">
+                        <input matStartDate formControlName="start" readonly placeholder="Start date" />
+                        <input matEndDate formControlName="end" readonly placeholder="End date" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #rangePicker>
+                        <mat-date-range-picker-actions>
+                          <button mat-button matDateRangePickerCancel>Cancel</button>
+                          <button mat-raised-button matDateRangePickerApply (click)="getDateRange()">Apply</button>
+                        </mat-date-range-picker-actions>
+                      </mat-date-range-picker>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="dropdown changing_charts ms-auto" id="counselling_toggle_button" *ngIf="counsellingChartData.length > 0">
+                              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="assets/images/charts/chart-menu.svg" alt="" class=changing_chart_img>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            
+                                <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('line', 'counselling-chart')"><img src="assets/images/charts/chart-1.svg" alt=""></a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('column', 'counselling-chart')"><img src="assets/images/charts/chart-2.svg" alt=""></a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('bar', 'counselling-chart')"><img src="assets/images/charts/chart-3.svg" alt=""></a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('doughnut', 'counselling-chart')"><img src="assets/images/charts/donut-chart.svg" alt=""></a></li>
+            
+                          
+                              <li><a class="dropdown-item" href="javascript:void(0)" (click)="switchChart('pie', 'counselling-chart')"><img src="assets/images/charts/chart-4.svg" alt=""></a></li>
+                       
+                                <li (click)="downloadImage('counselling_chart')"><a class="dropdown-item" href="javascript::void(0)"><img src="assets/images/charts/chart-11.svg" alt=""></a></li>
+                     
+                              </ul>
+                            </div> -->
+            </div>
+            <div id="chart_area" class="dynamic_chart text-center"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

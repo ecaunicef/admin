@@ -1,0 +1,227 @@
+.mainFooter {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: calc(100vw - 260px);
+    border-top: 1px solid #D1D1D1;
+    background: #F3F3F3;
+    padding: 0 0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    transition: all .3s ease-in-out;
+}
+
+.mainFooter.mainFooterWidth {
+    width: calc(100vw - 76px);
+}
+
+.mainFooter>.container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.mainFooter .mainFooter__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left p {
+    font-family: var(--primaryFontFamily);
+    font-size: 0.857rem;
+    color: rgba(12, 1, 21, 0.50);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left p a.statsMauritiusLogo {
+    display: inline-block;
+    height: 15px;
+}
+
+.mainFooter .mainFooter__main .mainFooter__left p a img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: var(--primaryFontFamily);
+    font-size: 0.714rem;
+    color: #CECECE;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p:first-child {
+    margin-right: 15px;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-left: 5px;
+}
+
+.mainFooter .mainFooter__main .mainFooter__right p a span {
+    display: inline-block;
+    color: rgba(12, 1, 21, 0.50);;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.footerHelpBox {
+    position: fixed;
+    bottom: 30px;
+    /* right: 20px; */
+    right: 5px;
+    z-index: 9999;
+}
+
+.footerHelpBox .dropdown-toggle {
+    width: 35px;
+    height: 35px;
+    background-color: #ffffff;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50% !important;
+}
+
+.footerHelpBox .dropdown-toggle::after {
+    display: none;
+}
+
+.footerHelpBox .dropdown-toggle img {
+    /* width: 100%; */
+    width: 8px;
+    height: 100%;
+
+    filter: invert(0%) sepia(100%) saturate(29%) hue-rotate(65deg) brightness(-1%) contrast(100%);
+}
+
+.footerHelpBox .dropdown-menu {
+    padding: 5px 0;
+    bottom: 60px !important;
+    right: -2px !important;
+    transform: none !important;
+    border-radius: 0;
+    top: auto !important;
+}
+
+.footerHelpBox .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: calc(100% - 7px);
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    border: 1px solid rgb(0 0 0 / 17.5%);
+    background-color: #ffffff;
+    z-index: -1;
+}
+
+.footerHelpBox .dropdown-menu::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 10px);
+    right: 12px;
+    width: 20px;
+    height: 10px;
+    background-color: #ffffff;
+    z-index: -1;
+}
+
+.footerHelpBox .dropdown-menu li {
+    display: block;
+    border-bottom: 1px solid rgb(51, 51, 51, 0.1);
+}
+
+.footerHelpBox .dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.footerHelpBox .dropdown-menu li a {
+    display: block;
+    color: #333333;
+    padding: 5px 10px;
+    font-size: 1rem;
+}
+
+.footerHelpBox .dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+@media screen and (max-width:1600px) {
+    .footerHelpBox .dropdown-toggle {
+        width: 32px;
+        height: 32px;
+    }
+
+    .mainFooter .mainFooter__main .mainFooter__left p {
+        font-size: 0.833rem;
+    }
+
+    .mainFooter .mainFooter__main .mainFooter__right p a span {
+        font-size: 1rem;
+    }
+
+    .mainFooter {
+        height: 20px;
+    }
+
+    .footerHelpBox {
+        bottom: 25px;
+    }
+}
+
+@media screen and (max-width:1366px) {
+    .footerHelpBox .dropdown-toggle {
+        width: 27px;
+        height: 27px;
+    }
+
+    .footerHelpBox .dropdown-menu {
+        bottom: 45px !important;
+        right: -7px !important;
+    }
+
+    .footerHelpBox .dropdown-menu li a {
+        padding: 3.25px 7.5px;
+        font-size: 0.714rem;
+    }
+
+    .mainFooter {
+        width: calc(100vw - 200px);
+        height: 20px;
+    }
+    .mainFooter .mainFooter__main .mainFooter__left p,
+    .mainFooter .mainFooter__main .mainFooter__right p {
+        font-size: 0.571rem;
+    }
+
+    .mainFooter .mainFooter__main .mainFooter__right p span {
+        font-size: 0.643rem;
+    }
+}

@@ -1,0 +1,278 @@
+<div class="mainContent classificationPage">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">Show</span>
+                            <label class="showDigits" > 
+                                <select  (change)="changePageSize()" id="mySelectId">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li>
+
+                    <li class="filter_li" module="Admin">
+                        <!-- <a data-bs-toggle="modal" data-bs-target="#filter-popup" matTooltip="Filter" [matTooltipPosition]="'above'">
+                            <img src="assets/images/filter.svg"></a> -->
+
+                                <a class="dropdown-toggle filter_sec"  matTooltip="Filter" data-bs-auto-close="false" aria-expanded="false" [matTooltipPosition]="'above'" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="filterSelected ? 'active' : ''">
+                                    <img src="assets/images/filter.svg">
+                                </a>
+                                
+                                <div class="filter_drop dropdown-menu custom-popup py-0">
+                                        <div class="modal-header">
+                                               <h1 class="modal-title">Filter</h1>
+                                               <button type="button" class="btn-close ms-auto filter-close" data-bs-auto-close="inside" aria-expanded="false" aria-label="Close" (click)="onCloseFilterModel()"></button>
+                                        </div>
+                                    <form [formGroup]="filterForm" class="">
+                                        <div class="px-4 py-5">
+                                            <div class="form-box h-100 p-0 w-100 pt-2">
+                                           
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative">
+                                                            <label>Category</label>
+                                                            <mat-form-field class="example-full-width textarea-box">
+                                                              <mat-select formControlName="category">
+                                                                <mat-option *ngFor="let item of messageCategory" [value]="item.id">{{item.classification_name}}</mat-option>
+                                                              </mat-select>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row grey_box">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative px-0">
+                                                            <label>By Geographical Area</label>
+                                                            <div class="d-flex w-100">
+                                                                <div class="w-100 pe-2">
+                                                                    <label class="gaLabel">Country</label>
+                                                                    <mat-form-field class="example-full-width textarea-box">
+                                                                        <mat-select formControlName="country">
+                                                                            <mat-option *ngFor="let item of allCountryList" [value]="item.country_area_code">{{item?.country_name}}</mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                        
+                                          
+                                                <div class="row grey_box mb-0">
+                                                    <div class="col-md-12">
+                                                        <div class="add_aggregate_input position-relative px-0">
+                                                            <label>By Sent Date</label>
+                                                            <mat-form-field class="example-full-width textarea-box" formGroupName="sent_date">
+                                                                <!-- <mat-label>Enter a date range</mat-label> -->
+                                                                <mat-date-range-input [rangePicker]="rangePicker">
+                                                                  <input matStartDate placeholder="Start date" formControlName="start" readonly/>
+                                                                  <input matEndDate placeholder="End date" formControlName="end" readonly/>
+                                                                </mat-date-range-input>
+                                                                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                                                                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                                                                <mat-date-range-picker #rangePicker>
+                                                                  <mat-date-range-picker-actions>
+                                                                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                                                                    <button mat-raised-button matDateRangePickerApply>Apply</button>
+                                                                  </mat-date-range-picker-actions>
+                                                                </mat-date-range-picker>
+                                                              </mat-form-field>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" d-flex justify-content-center align-items-center border-top py-3">
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary me-2" (click)="resetForm()">Reset</button>
+                                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" (click)="applyFilter()">Apply</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            
+                    </li>
+               
+                </ul>
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="Search"  (search)="clearSearch()" (keyup)="updateFilter($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="ngxDatatable">
+                <ngx-datatable class="material"  [rows]="rows" [headerHeight]="50" [columnMode]="columnMode.force"
+                  [footerHeight]="40" [rowHeight]="'auto'" [messages]="{emptyMessage:'No data'}"
+                [limit]="10" scrollbarH="True">
+
+
+                <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                    [sortable]="false" [resizeable]="false">
+                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                        {{(rowIndex + 1)}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Title" prop="title">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.title}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Sub Title" prop="subtitle">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.subtitle}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <!-- ------------------------------ New Change --------------------------------- -->
+                <ngx-datatable-column name="Message" prop="message">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <div class="modal_para">
+                            <p class="ellipseText" matTooltip="{{ row.message }}" [matTooltipPosition]="'above'">{{row.message}}</p>
+                            <img class="popupArrow" src="assets/images/arrow.svg"  data-bs-toggle="modal" (click)="onOpenMessageModel(row)" data-bs-target="#messageModal"/>
+                        </div>
+
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Status" prop="created">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <!-- {{row.sent_status || '-'}} -->
+                        <!-- <img class="informationIcon" src="assets/images/icon/i_icon.svg"  [matTooltip]="'Last sent on: '+(row.sent|date:'medium')" [matTooltipPosition]="'above'" /> -->
+                        <!-- <p class="ellipseText flex_start " *ngIf="row.is_scheduled === 0">{{row.is_scheduled === 0 && row?.sent==null?"-":"Sent"}}</p> -->
+                        <p class="ellipseText flex_start " *ngIf="!row?.is_scheduled && !row.sent ">{{"-"}}</p>
+                        <p class="ellipseText flex_start " *ngIf="(!row?.is_scheduled && row.sent)">{{"Sent "}}
+                            <img class="informationIcon" src="assets/images/icon/i_icon.svg" [matTooltip]="'Sent on: ' + (row.sent | date:'medium':'UTC')" [matTooltipPosition]="'above'" />
+                        </p>
+                        <p class="ellipseText flex_start " *ngIf="(row?.is_scheduled && row.sent)">{{"Sent "}}
+                            <img class="informationIcon" src="assets/images/icon/i_icon.svg" [matTooltip]="'Sent on: ' + (row.sent | date:'medium':'UTC')" [matTooltipPosition]="'above'" />
+                        </p>
+
+                        <p class="ellipseText flex_start" *ngIf="row?.is_scheduled == 1 && row?.sent == null">Scheduled <img class="informationIcon" src="assets/images/icon/i_icon.svg"  [matTooltip]="'Scheduled on: ' + (row.scheduled | date:'medium':'UTC')" [matTooltipPosition]="'above'" /></p>
+                    </ng-template>
+                </ngx-datatable-column>
+                <!-- ------------------------------ New Change --------------------------------- -->
+                <ngx-datatable-column name="Created Date"  prop="created">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.created | date:'yyyy-MM-dd'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Category" [maxWidth]="180" [minWidth]="180" prop="classification_name">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.classification_name || '-'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column name="Message Status" [maxWidth]="180" [minWidth]="180" prop="created">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.scheduled | date}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+                
+                <ngx-datatable-column name="Created By" prop="username">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row.username || '-'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Geographical Area" [maxWidth]="180" [minWidth]="180" prop="area_name">                               
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        <div matTooltip="{{row.area_name}}" matTooltipPosition="right">
+                            {{row.area_name || '-'}}
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                    <ngx-datatable-column name="Status" [maxWidth]="180" [minWidth]="180" prop="sending_status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.sending_status || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                <!-- <ngx-datatable-column name="Broadcast Date" prop="broadcastDate">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                        {{row?.broadcastDate}}
+                    </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column [maxWidth]="180" class="name_specific_col"
+                    name="Action" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <div class="dropdown select_action">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li *ngIf="!row.sent" module="Admin" submodule="Access Control-User" accessType="add_edit" (click)="handleEdit(row)"><a
+                                        class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                </li>
+                                <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="deleteBlog(row?.id)">Delete</a>
+                                </li>
+                                <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="sendUser(row)">{{(row.sent)?"Resend":"Send"}}</a>
+                                </li>
+                         
+                            </ul>
+                        </div>                   
+                    </ng-template>
+                </ngx-datatable-column>
+
+
+                <ngx-datatable-footer>
+                    <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                        let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                        <div class="CstmPadding">
+                            <div>
+                                {{'showing'}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to'}} {{ rowCount> curPage *
+                                    pageSize ? curPage * pageSize : rowCount}} {{'of'}} {{rowCount}}
+                                    {{'records'}}
+
+                            </div>
+                        </div>
+                        <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                            [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                            [page]="curPage" [size]="pageSize" [count]="rowCount"
+                            [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                        </datatable-pager>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =================================Message Modal Box========================= -->
+
+<div class="modal fade custom-popup" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-5 pt-4">
+                <p>{{viewMessageData.message}}</p>                
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<app-edit (setPage)="setPage({ offset: 0 })"></app-edit>
+

@@ -1,0 +1,44 @@
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="manageCategory" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm(undefined)" module="Admin"
+            submodule="Access Control-User" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+        <div class="form-heading">
+            <h5><span class="bg-white">{{showEdit ? 'Edit' : 'Add'}} Classification</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Name</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput [readonly]="viewForm" formControlName="classificationName" value="">
+                                <mat-error class="star error-span"
+                                    *ngIf="manageCategory.get('name')?.invalid && (manageCategory.get('c')?.dirty || manageCategory.get('name')?.touched)">
+                                    <div class="star error-span" *ngIf="manageCategory.get('name').errors?.required">
+                                        {{'user.name' | transloco}} {{'user.is_required' | transloco}}</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center">
+            <button *ngIf="!showEdit" type="button" class="btn" [disabled]="!manageCategory.valid"
+                (click)="addCategory()">Add
+                <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt=""> -->
+            </button>
+            <button type="button" class="btn" *ngIf="showEdit" [disabled]="!manageCategory.valid"
+                (click)="updateCategory(this.manageCategory.value)">Update
+                <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt=""> -->
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="overlay"></div>

@@ -1,0 +1,98 @@
+<!-- add goal -->
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="addAreaForm" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm('')"
+            matTooltip="{{!add_form?('add'| transloco) : 'Close'}}" module="Admin" submodule="GIS-Area" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+
+        <div class="form-heading">
+            <h5><span class="bg-white">
+                <!-- {{(showEdit)?('edit'|transloco):('add'| transloco)}} {{'area.area'| transloco}} -->
+                {{ viewForm ? 'View' : (showEdit ? ('edit' | transloco) : ('add' | transloco)) }} {{'Geographical Area'| transloco}}
+                </span>
+            </h5>
+        </div>
+        <div class="gallery-collection">
+            <ul *ngFor="let error of validationError">
+                <li>{{ error }}</li>
+            </ul>
+            <div class="form-box">
+                <div class="row">
+                    <!-- <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="required">*</span> {{'Parent Id' | transloco}}</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <input matInput  formControlName="areaName"  value="">
+                                <mat-error class="star error-span" *ngIf="addAreaForm.get('areaName')?.errors?.required">
+                                    {{'area.area_name_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                       
+                    </div> -->
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label>
+                                 <!-- {{ 'Parent Area' | transloco }} -->
+                                   Parent Area ID
+                                </label>
+                                <!-- <span class="required">*</span> -->
+
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="parent_area_code"
+                                  (selectionChange)="onSelectionChange($event)">
+                                    <mat-option *ngFor="let country of countryList" [value]="country?.area_code">
+                                        {{ country?.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error class="star error-span" *ngIf="addAreaForm.get('parent_area_code')?.errors?.required">
+                                    {{ 'area.area_name_required' | transloco }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative mb-0">
+                            <label><span class="required">*</span>Area ID</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <input matInput formControlName="area_code" placeholder="" value="">
+                    
+                                <mat-error class="star" *ngIf="addAreaForm.get('area_code')?.errors?.required">
+                                    {{'area.area_id_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="required">*</span> {{'name' | transloco}}</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <input matInput formControlName="name" placeholder="" value="">
+                                <mat-error class="star" *ngIf="addAreaForm.get('name')?.errors?.required">
+                                    {{'area.area_name_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center" *ngIf="!viewForm">
+            <button type="button" class="btn" *ngIf="!showEdit" [disabled]="!addAreaForm.valid"
+                (click)="addNewArea()">{{'add' | transloco}}
+            </button>
+            <button type="button" class="btn" *ngIf="showEdit" [disabled]="!addAreaForm.valid"
+                (click)="editSelectedArea(this.addAreaForm.value)">{{'update' | transloco}}
+            </button>
+        </div>
+    </form>
+</div>
+
+<div [ngClass]="add_form ? 'overlay d-block ' : 'overlay'"></div>

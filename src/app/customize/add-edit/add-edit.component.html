@@ -1,0 +1,41 @@
+<div class="gallery-sidebar add-user-modal" [ngClass]="add_form ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="manageChatline" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm('')" matTooltip="{{ !showTooltip ? ('add') : ('close') }}" module="Admin" submodule="Access Control-User" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+        <div class="form-heading">
+            <h5><span class="bg-white">{{titlePage}} U-Matter Chatline Details</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> Geographical Area</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="area_level1">
+                                    <mat-option [disabled]="doesAreaExists(item)" *ngFor="let item of allAreas" value="{{item.area_code}}">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                           
+                            <label><span class="error-span">*</span> Chatline Link</label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="w_link"  value="">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center">
+            <button *ngIf="!showEdit" type="button" class="btn" [disabled]="!manageChatline.valid" (click)="addChatline()">Add</button>
+            <button *ngIf="showEdit" type="button" class="btn" [disabled]="!manageChatline.valid" (click)="updateChatline()">Update</button>
+            <!-- <button type="button" class="btn">Update</button> -->
+        </div>
+    </form>
+</div>
+<div class="overlay"></div>

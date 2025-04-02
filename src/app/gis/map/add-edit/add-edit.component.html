@@ -1,0 +1,110 @@
+<!-- add goal -->
+<div class="gallery-sidebar add-user-modal" [ngClass]="form_open ? 'form-expand' : 'form-collapse'">
+    <form [formGroup]="addEditForm" class="position-relative">
+        <div class="gallery-toggler add-user" (click)="showForm(undefined)"
+        matTooltip="{{ showTooltip ? ('add'|transloco) : ('close'|transloco) }}" accessControl module="Admin" submodule="GIS-Maps" accessType="add_edit">
+            <img src="assets/images/plus.svg" alt="">
+        </div>
+
+        <div class="form-heading">
+            <h5><span class="bg-white">{{ viewForm ? 'View': (showEdit)?('edit'|transloco):('add'| transloco)}} {{'gis' | transloco}}</span></h5>
+        </div>
+        <div class="gallery-collection">
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> {{'title'|transloco}}</label>
+                            <mat-form-field class="example-full-width">
+
+                                <input matInput [readonly]="viewForm"  formControlName="title" value="">
+                                <mat-error class="star error-span" *ngIf="addEditForm.get('title')?.errors?.required">
+                                    {{'gis_map.title_is_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> {{'level'|transloco}}</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <mat-select formControlName="levels" [disabled]="viewForm">
+                                    <mat-option *ngFor="let level of levels" value="{{ level }}">{{'level'|transloco}} {{ level
+                                        }}</mat-option>
+                                </mat-select>
+                                <mat-error class="star error-span" *ngIf="addEditForm.get('levels')?.errors?.required">
+                                    {{'gis_map.level_is_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-12">
+                        <div class="add_aggregate_input position-relative">
+                            <label><span class="error-span">*</span> {{'start_date_end_data' | transloco}}</label>
+                            <mat-form-field class="example-full-width textarea-box">
+                                <input matInput ngxDaterangepickerMd [locale]="{ applyLabel: ' Ok ', format: 'DD-MM-YYYY' }" autoApply="true" startKey="startDate" endKey="endDate" [(ngModel)]="selected" [showDropdowns]="true" formControlName="dates" />
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error class="star error-span" *ngIf="addEditForm.get('dates')?.errors?.required">
+                                    {{'gis_map.date_is_required'| transloco}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="add_aggregate_input position-relative">
+                                    <label>From</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                        <input matInput [matDatepicker]="fromPicker" placeholder="Choose a date" formControlName="fromDate" [readonly]="viewForm">
+                                        <mat-datepicker-toggle matSuffix [for]="fromPicker" *ngIf="!viewForm"></mat-datepicker-toggle>
+                                        <mat-datepicker #fromPicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="add_aggregate_input position-relative">
+                                    <label>To</label>
+                                    <mat-form-field class="example-full-width textarea-box">
+                                        <input matInput [matDatepicker]="toPicker" placeholder="Choose a date" formControlName="toDate" [min]="addEditForm.get('fromDate').value" [max]="maxDate" [readonly]="viewForm">
+                                        <mat-datepicker-toggle matSuffix [for]="toPicker" *ngIf="!viewForm"></mat-datepicker-toggle>
+                                        <mat-datepicker #toPicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+
+                    <div class="col-12" *ngIf="!viewForm" >
+                        <label class="form_lable d-block text-uppercase"><span class="error-span">*</span>{{"gis_map.gio_json" | transloco}}</label>
+                        <input formControlName="jsonFile" type="file" name="document" id="documents1"
+                            (change)="getDocument($event)" accept="application/JSON" [disabled]="viewForm" style="display: none" />
+                        <label for="documents1" class="btn btn_browse">{{"browse_file" | transloco}}</label>
+                        <p class="docPara">
+                            {{ docfilename }}
+                        </p>
+                        <p *ngIf="!checkJsonFile" class="conditionPara">
+                            {{ 'gis_map.upload_only_json' | transloco }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="gallery-sidebar-button modal-footer-shadow text-center" *ngIf="!viewForm">
+            <button type="button" class="btn" *ngIf="!showEdit" [disabled]="!addEditForm.valid || !checkJsonFile" (click)="addNewRecord(this.addEditForm.value)">
+                {{"add" | transloco}} 
+                <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt=""> -->
+            </button>
+            <button type="button" class="btn" *ngIf="showEdit" (click)="updateGis(this.addEditForm.value)">
+                {{"update" | transloco}} 
+                <!-- <img src="assets/images/arrow-right.svg" class="ms-2" alt="" /> -->
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="overlay"></div>

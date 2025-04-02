@@ -1,0 +1,19 @@
+li.import_links {
+    margin-left: 12px;
+    padding: 0 0 0 12px;
+    border-radius: 0;
+    border-left: 1px solid #999;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease-in-out;
+}
+li.import_links:hover a img{
+    filter: invert(49%) sepia(71%) saturate(1451%) hue-rotate(325deg) brightness(100%) contrast(103%);
+}
+@media  (max-width:1600px) {
+  
+
+}

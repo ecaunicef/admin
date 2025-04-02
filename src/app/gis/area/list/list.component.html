@@ -1,0 +1,341 @@
+<div class="mainContent">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">{{'show' | transloco}}</span>
+                            <label class="showDigits" > 
+                                <select (change)="changePageSize($event.target.value)">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label> 
+                        </div>
+                    </li>
+                    <li class="import_links">
+                        <a href="javascript:void(0)" matTooltip="Export" [matTooltipPosition]="'above'"
+                            data-bs-toggle="modal" data-bs-target="#export-popup"><img src="assets/images/export.svg"
+                                alt=""></a>
+                    </li>
+                    <li class="import_links ps-0 border-0">
+                        <a href="javascript:void(0)" matTooltip="Import" [matTooltipPosition]="'above'"
+                            data-bs-toggle="modal" data-bs-target="#import-popup"><img src="assets/images/import.svg"
+                                alt=""></a>
+                    </li>
+                   
+                </ul>
+
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="{{'search' | transloco}}" (search)="clearSearch()" (keyup)="updateFilter($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>  
+
+            <div class="ngxDatatable">
+                <ngx-datatable #table class="material" [rows]="rows" [columnMode]="ColumnMode.force"
+                    [headerHeight]="45" [footerHeight]="40" [rowHeight]="'auto'" [selected]="selected" [limit]="10"
+                    [messages]="{emptyMessage:'No data'}">
+
+
+                    <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                        [sortable]="false" [resizeable]="false">
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{(rowIndex + 1)}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Area Name" prop="name">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row?.name}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Area ID" prop="area_code">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.area_code}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Area Level" prop="level">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.level || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Parent Area ID" prop="parent_area_code">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.parent_area_code || '-'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Status" prop="status">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{(row.status)?"Enabled":"Disabled"}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [maxWidth]="180" class="name_specific_col" name="Action" [sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <div class="dropdown select_action">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="rowEdit(row)">Edit</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="deleteArea(row)">Delete</a>
+                                    </li>
+                                    <li module="Admin" submodule="Access Control-User" accessType="delete">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="changeStatus(row)">{{(row.status)?"Disable":"Enable"}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-footer>
+                        <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                            <div class="CstmPadding">
+                                <div>
+                                    {{'showing'|transloco}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to' |
+                                        transloco}} {{ rowCount> curPage *
+                                        pageSize ? curPage * pageSize : rowCount}} {{'of' | transloco}} {{rowCount}}
+                                        {{'records'|transloco}}
+
+                                </div>
+                            </div>
+                            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                [pagerRightArrowIcon]="'datatable-icon-right'"
+                                [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                                [page]="curPage" [size]="pageSize" [count]="rowCount"
+                                [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                            </datatable-pager>
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =============export popup=================== -->
+<div class="modal fade export-popup custom-popup" id="export-popup" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Export</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="col-12">
+                    <div class="box-droping__input">
+                        <svg class="box-droping__icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="18px"
+                            viewBox="0 0 20 18" enable-background="new 0 0 20 18" xml:space="preserve">
+                            <g sketch:type="MSPage">
+                                <g sketch:type="MSLayerGroup">
+                                    <path sketch:type="MSShapeGroup" d="M5.86,9.346c-0.176,0-0.353,0.066-0.487,0.202c-0.271,0.271-0.271,0.706,0,0.976l4.138,4.138
+                            c0.031,0.032,0.067,0.062,0.105,0.086c0.017,0.011,0.035,0.019,0.054,0.029c0.022,0.012,0.042,0.024,0.065,0.034
+                            c0.022,0.01,0.047,0.015,0.07,0.021c0.019,0.005,0.037,0.014,0.057,0.018c0.091,0.018,0.183,0.018,0.271,0
+                            c0.021-0.004,0.038-0.013,0.059-0.018c0.022-0.007,0.047-0.012,0.069-0.021c0.022-0.011,0.043-0.022,0.064-0.034
+                            c0.018-0.011,0.037-0.019,0.054-0.03c0.038-0.025,0.073-0.054,0.105-0.086l4.138-4.137c0.269-0.271,0.269-0.707,0-0.977
+                            c-0.134-0.135-0.313-0.201-0.488-0.201s-0.352,0.066-0.486,0.201l-2.962,2.961V1.07c0-0.38-0.309-0.69-0.688-0.69
+                            S9.31,0.689,9.31,1.07v11.438L6.349,9.547C6.214,9.412,6.037,9.346,5.86,9.346"></path>
+                                    <path sketch:type="MSShapeGroup"
+                                        d="M19.31,12.104c-0.381,0-0.688,0.309-0.688,0.689v3.448H1.379v-3.448
+                            c0-0.382-0.31-0.689-0.69-0.689C0.31,12.104,0,12.412,0,12.793v4.828h20v-4.827C19.999,12.412,19.69,12.104,19.31,12.104">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="export-title">Export {{selectedLanguageList}} Template</div>
+                    <div class="button_box">
+                        <button type="button" class="custom-file-upload mb-0" (click)="downloadEmptyFile()">Empty</button>
+                        <button type="button" class="custom-file-upload mb-0" (click)="downloadWithData()">With Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- =================import popup============= -->
+<div class="modal fade export-popup custom-popup" id="import-popup" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Import</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+            <div class="modal-body px-5 align-items-center">
+                <div class="col-12">
+                    <div class="box-droping__input">
+                        <svg xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" class="box-droping__icon"
+                            enable-background="new 296 387 20 18" height="18px" viewBox="296 387 20 18" width="20px"
+                            x="0px" xmlns="http://www.w3.org/2000/svg" y="0px">
+                            <g sketch:type="MSPage">
+                                <g sketch:type="MSLayerGroup">
+                                    <path sketch:type="MSShapeGroup" d="M301.862,393.275c0.176,0,0.353-0.066,0.487-0.201l2.961-2.961v11.438
+                            c0,0.381,0.309,0.69,0.689,0.69s0.689-0.31,0.689-0.69v-11.438l2.961,2.961c0.135,0.135,0.311,0.201,0.487,0.201
+                            s0.354-0.066,0.488-0.201c0.269-0.27,0.269-0.706,0-0.976l-4.138-4.137c-0.032-0.032-0.067-0.061-0.105-0.086
+                            c-0.017-0.012-0.036-0.02-0.054-0.03c-0.021-0.012-0.042-0.024-0.064-0.034c-0.023-0.01-0.047-0.015-0.07-0.022
+                            c-0.02-0.005-0.038-0.013-0.058-0.017c-0.089-0.018-0.181-0.018-0.271,0c-0.02,0.004-0.039,0.012-0.058,0.017
+                            c-0.023,0.007-0.047,0.012-0.07,0.022c-0.023,0.009-0.043,0.022-0.065,0.034c-0.018,0.01-0.037,0.018-0.054,0.029
+                            c-0.038,0.025-0.074,0.054-0.105,0.086l-4.138,4.137c-0.27,0.27-0.27,0.706,0,0.976
+                            C301.509,393.209,301.686,393.275,301.862,393.275"></path>
+                                    <path sketch:type="MSShapeGroup"
+                                        d="M315.311,399.482c-0.381,0-0.689,0.309-0.689,0.69v3.448h-17.242v-3.448
+                            c0-0.382-0.309-0.69-0.69-0.69c-0.38,0-0.689,0.309-0.689,0.69V405h20v-4.827C316,399.791,315.691,399.482,315.311,399.482">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="export-title text-center">Import {{selectedLanguageList}} Template</div>
+                   <div class="file-upload-filename text-center">{{showFileName}}</div>
+              
+
+                    <div class="button_box upload-btn-wrapper">
+                        <input  type="file" name="files"  id="fileupload_language" accept=".csv" style="display: none;">
+                        <!-- <input type="file" name="file[]" id="fileupload_language" accept=".csv" style="display: none;" #fileupload_language> -->
+                        <button type="button" class="custom-file-upload mb-0"
+                            (click)="chooseFile()">Browse File</button>
+                        <button type="button" class="custom-file-upload mb-0" id="upload" [disabled]="isFileExist==false">Upload</button>
+                    </div>
+
+                    <div class="last-updated-file" style="display:{{(fileName!='')?'block':'none'}}">
+    
+                        <h6 class="import_browse">Import Status</h6>
+                        <table class="table import_table">
+                            <tbody>
+                                <tr>
+                                    <td>File Name:</td>
+                                    <td><span>{{fileName}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Status :</td>
+                                    <td><span id="filestatus">{{uploadStatus}}</span> </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Total {{selectedLanguageList}} : </td>
+                                    <td><span>{{totalCount}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Imported records:</td>
+                                    <td><span>{{totalImported}}</span></td>
+                                </tr>
+                
+                                <tr>
+                                    <td>Updated records</td>
+                                    <td><span>{{totalUpdated}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Error records :</td>
+                                    <td><span>{{errorRecord}}</span></td>
+                                </tr> -->
+                                <!-- <tr>
+                                    <td>Date And Time :</td>
+                                    <td><span>2023-04-04 10:45:58</span></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+
+
+
+                        <div class="the-progress-bar" style="padding: 1px 1.4% !important;">
+                            <div class="bordered-box user-form mb-3 mt-2">
+                                <div class="row processDiv">
+                                    <div class="col-md-12">
+                                        <span class="progress-records">Progress</span>
+                                        <div class="progress mb-6" style="height: 20px;">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped"
+                                                role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                                aria-valuemax="100" id="progress_bar"
+                                                style="width: 0%; position: initial;">
+                                                <div class="strip-status" id="myBar" style="color: #ffffff;"></div>
+                                            </div>
+                                        </div>
+
+                                        <span class="progress-records">Errors</span>
+                                        <div class="progress mb-6" style="height: 20px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                                role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                                aria-valuemax="100" id="progress_bar1" style="width: 0%;"></div>
+                                            <div class="strip-status" id="myBar1" style="color: #ffffff;"></div>
+                                        </div>
+
+                                        <div class="statusImport" style="display: none;">
+                                            <div class="progress mb-6" style="height: 20px;">
+                                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                    style="
+                                                                                                                        width: 100%;
+                                                                                                                        font-size: 19px;
+                                                                                                                        line-height: 37px;
+                                                                                                                        ">
+                                                   Importing
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="statusFailed" style="display: none;">
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar mb-6 progress-bar-danger" role="progressbar"
+                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                    style="
+                                                                                                                        width: 100%;
+                                                                                                                        font-size: 19px;
+                                                                                                                        line-height: 37px;
+                                                                                                                        ">
+                                                    <span
+                                                        class="progress-records">Failed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="statusComplete" style="display: none;">
+                                            <div class="progress mb-6" style="height: 20px; margin-top: 35px;">
+                                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="
+                                                                                                                    width: 100%;
+                                                                                                                    font-size: 21px;
+                                                                                                                    line-height: 21px;
+                                                                                                                    "
+                                                    id="statusProgress">
+                                                    <span
+                                                        class="progress-records">Completed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center border-top">
+                <button class="btn btn-primary" [disabled]="!isImportCompleted"  data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-add-edit (emitAddUpdate)="eventFromChild($event)" [data]="editData"></app-add-edit>

@@ -1,0 +1,7 @@
+.moodMapper .gallery-toggler.add-user {
+    display: none;
+}
+
+.moodMapper.form-expand .gallery-toggler.add-user {
+    display: block;
+}

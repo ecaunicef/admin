@@ -1,0 +1,55 @@
+::ng-deep .multiSelectDate .mat-mdc-form-field-flex{
+    align-items: center;
+}
+::ng-deep .mat-mdc-form-field-flex {
+    align-items: center;
+}
+.moodTracker table.table {
+    width: 33%;
+    margin: 50px auto auto;
+}
+.moodTracker table.table thead, .moodTracker table.table tbody {
+    border: 1px solid #DEE2E6;
+}
+.moodTracker table.table tr th {
+    border: 1px solid #DEE2E6;
+    background: #F1F2F7;
+    height: 48px;
+    padding: 10px 40px;
+    vertical-align: middle;
+    border-right: none;
+    border-left: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+}
+.moodTracker table.table tr td {
+    border: 1px solid #DEE2E6;
+    height: 60px;
+    padding: 10px 40px;
+    vertical-align: middle;
+    border-right: none;
+    border-left: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+}
+.moodTracker table.table tr:nth-child(even) td{
+    background: #F8F8F8;
+}
+
+.h-88 {
+    height: calc(100% - 88px);
+}
+::ng-deep .form-box.mct_pipe mat-date-range-input input {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1600px) {
+    ::ng-deep .moodTracker.ngxDatatable .ngx-datatable .datatable-body {
+        height: calc(100% - 106px) !important;
+    }
+    
+}

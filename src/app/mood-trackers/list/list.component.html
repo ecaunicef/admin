@@ -1,0 +1,104 @@
+<div class="mainContent">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top justify-content-center">
+                <ul class="form-box pt-3 pb-1 gap-4">
+                    <!-- <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">Show</span>
+                            <label class="showDigits" > 
+                                <select id="mySelectId" (change)="changePageSize()">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li> -->
+                    <li>
+                        <div class="add_aggregate_input position-relative">
+                            <label>Mood Type</label>
+                            <mat-form-field class="example-full-width">
+                                <mat-select [(value)]="selectedFeeling" (selectionChange)="getListData(selectedFeeling)">
+                                  <mat-option *ngFor="let feeling of feelings" [value]="feeling.value">
+                                    {{ feeling.viewValue }}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="add_aggregate_input position-relative px-0">
+                            <label>Date Range</label>
+                            <mat-form-field class="example-full-width textarea-box pointer" (click)="rangePicker.open()">
+                                <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="dateRangeForm" [max]="todayDate">
+                                    <input matStartDate readonly formControlName="start" placeholder="Start date" />
+                                    <input matEndDate readonly formControlName="end" placeholder="End date" />
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matIconSuffix
+                                    [for]="rangePicker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #rangePicker>
+                                    <mat-date-range-picker-actions>
+                                        <button mat-button
+                                            matDateRangePickerCancel>Cancel</button>
+                                        <button mat-raised-button
+                                            matDateRangePickerApply (click)="getDateRange()">Apply</button>
+                                    </mat-date-range-picker-actions>
+                                </mat-date-range-picker>
+                            </mat-form-field>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="Search" (search)="clearSearch()"
+                        (keyup)="updateFilter($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="moodTracker" *ngIf="rows.length > 0; else noData">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Aggregation</th>
+                        <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Count</td>
+                        <td>{{totalMoodtracker}}</td>
+                      </tr>
+                      <tr>
+                        <td>Mean</td>
+                        <td>{{mean ?? '-'}}</td>
+                      </tr>
+                      <tr>
+                        <td >Median</td>
+                        <td>{{median ?? '-'}}</td>
+                      </tr>
+                      <tr>
+                        <td >Mode</td>
+                        <td>{{mode ?? '-'}}</td>
+                      </tr>
+                    </tbody>
+                  </table> 
+
+            </div>
+            <ng-template #noData>
+                <div class="no-data h-88 d-flex align-items-center justify-content-center">No data</div>
+            </ng-template>
+
+
+
+
+
+        </div>
+    </div>
+</div>

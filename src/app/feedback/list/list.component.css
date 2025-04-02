@@ -1,0 +1,41 @@
+
+.popupArrow{
+    cursor: pointer;
+    position: absolute;
+    top: auto;
+    right: -7px;
+    left: auto;
+    transform: translateY(-50%);
+    bottom: 1px;
+}
+.ellipseText{
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+.custom-popup .modal-body .ellipseText{
+    display: inline-block;
+}
+
+::ng-deep .checkbox_div .mdc-checkbox {
+    padding-right: 0;
+    padding-left: 0;
+}
+::ng-deep .checkbox_div .mdc-checkbox .mdc-checkbox__background{
+    left: 0;
+}
+::ng-deep .checkbox_div .mat-ripple, ::ng-deep .checkbox_div .mat-mdc-checkbox .mdc-checkbox__ripple{
+    display: none;
+}
+::ng-deep .filter_drop .mat-mdc-form-field-flex {
+    align-items: center;
+}
+
+.viewDetailsTable .wrap{
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}

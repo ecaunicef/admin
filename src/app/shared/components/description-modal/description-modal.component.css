@@ -1,0 +1,59 @@
+#modalDropDownDesc table tbody,
+#modalDropDownDesc table thead{
+    border: 0;
+}
+
+#modalDropDownDesc table.table th {
+    background: #EAEAF5;
+    border-bottom: 1px solid #DDDDDD;
+    padding-block: 0px;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 24px;
+    color: #333333;
+    padding: 5px 15px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#modalDropDownDesc table.table td {
+    background: none;
+    padding-block: 0px;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 24px;
+    color: #333333;
+    padding: 5px 15px;
+    vertical-align: middle;
+    border: 0;
+}
+
+#modalDropDownDesc table.table tr:nth-child(even) {
+    background: #F9F9F9;
+    border-block: 1px solid #ddd;
+}
+
+#modalDropDownDesc .modal-body{
+    padding-inline: 20px;
+     max-height: 80vh;
+     min-height: 40vh;
+     height: auto;
+}
+
+@media (max-width: 1600px){
+    #modalDropDownDesc table.table th{
+        font-size: 0.929rem;
+    }
+    #modalDropDownDesc table.table td{
+        font-size: 0.857rem;
+    }
+}
+
+@media (max-width: 1366px){
+    #modalDropDownDesc table.table th{
+        font-size: 0.786rem;
+    }
+    #modalDropDownDesc table.table td{
+        font-size: 0.714rem;
+    }
+}

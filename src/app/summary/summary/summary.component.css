@@ -1,0 +1,540 @@
+.card {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: row;
+    border-radius: .25rem;
+    background: #FFF;
+    border: none;
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.08);
+}
+
+.symbol {
+    min-width: 4.167vw;
+    display: flex;
+    align-items: center;
+    height: 5.156vw;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    padding: 0.521vw 1.042vw;
+    justify-content: center;
+}
+
+.symbol img{
+    max-height: 100%;
+}
+
+.top_area {
+    padding: 2.083vw 0;
+}
+.top_area ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    /* gap: 5.521vw; */
+    gap: 2.3vw;
+}
+.top_area ul li.columnArea {
+    min-width: 19.167vw;
+}
+.top_area ul li.columnArea:nth-child(2n) {
+    width: 100%;
+}
+.terques {
+    background: #6CCAC9;
+}
+
+.red {
+    background: #FF6D60;
+}
+
+.blue {
+    background: #57C8F2;
+}
+
+.yellow {
+    background: #F8D347;
+}
+
+.value_area {
+    display: flex;
+    padding: 0.208vw 0.781vw 0 1.6vw;
+}
+
+h4.cardName {
+    color: #666;
+    font-size: clamp(12px, 0.833vw, 16px);
+    font-weight: 600;
+    line-height: 0.938vw;
+    text-transform: uppercase;
+}
+
+.value {
+    /* padding: 5px 20px; */
+}
+
+.value h1 {
+    color: #666;
+    font-size: clamp(20px, 2.083vw, 40px);
+    font-weight: 600;
+    font-family: "Open Sans", sans-serif;
+    line-height: normal;
+    margin-bottom: 0;
+}
+
+.value p,
+.value h1 span {
+    color: #666;
+    font-size: clamp(10px, 0.725vw, 14px);
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: clamp(12px, 0.781vw, 15px);
+}
+
+.value p span {
+    /* color: #999;
+    font-size: 0.521vw;
+    line-height: normal; */
+    font-weight: 400;
+}
+
+/* .state-overview .col-md-4 .value {
+    width: 33.33%;
+} */
+
+.custm_border {
+    position: relative;    
+}
+.counsellingPadding{
+    padding: 0 1.163vw;
+}
+.custm_border:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 27px;
+    background: #999;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+
+.changing_charts button {
+    border: none;
+    padding: 0 6px;
+    background: transparent;
+}
+
+.changing_charts button::after {
+    display: none;
+}
+
+.changing_charts>ul.dropdown-menu {
+    min-width: fit-content;
+    border: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, .1);
+
+}
+
+.changing_charts>ul.dropdown-menu>li {
+    position: relative;
+}
+
+.changing_charts>ul.dropdown-menu>li>a,
+.child_inner_charts li a {
+    padding: 5px 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 2px;
+
+}
+
+.changing_charts>ul.dropdown-menu>li>a>img,
+.child_inner_charts li a img {
+    height: 18px;
+}
+
+.changing_chart_img {
+    width: 28px;
+}
+
+.child_inner_charts {
+    min-width: fit-content;
+    display: none;
+    position: absolute;
+    left: -32px;
+    top: 0;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .1);
+    padding: 8px 0;
+    border-radius: 0.375rem;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, .1);
+}
+
+.changing_charts>ul.dropdown-menu>li:hover .child_inner_charts {
+    display: block;
+    list-style: none;
+}
+
+.child_inner_charts li a:hover {
+    background-color: #e9ecef;
+}
+
+.label_off {
+    display: none;
+}
+
+.chart_box {
+    background: #fff;
+    width: 96%;
+    border-radius: 4px 4px 0px 0px;
+    border-top: 7px solid #4AB1FB;
+    height: 72vh;
+    margin-bottom: 64px;
+    border-radius: 4px;
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.08);
+}
+
+.user_head {
+    border-bottom: 1px solid #DBDBDB;
+}
+
+.user_head h4 {
+    padding: 0.469vw 1.042vw;
+    color: #333;
+    font-size: 0.729vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.detail_area {
+    padding: 1.042vw;
+}
+
+.toggle_btn p {
+    margin-bottom: 0;
+    color: #666;
+    font-size: 0.67vw;
+    line-height: normal;
+}
+
+.dynamic_chart {
+    padding: 0 ;
+    height: calc(72vh - 160px);
+    padding: 0.521vw 0.521vw 1.563vw;
+}
+
+::ng-deep .dynamic_chart div {
+    font-weight: bold;
+}
+
+::ng-deep .multiSelectDate .mat-mdc-form-field-flex {
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+::ng-deep .multiSelectDate button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base {
+    height: fit-content !important;
+    width: fit-content !important;
+    margin-right: 5px;
+}
+
+::ng-deep .person_detail .mat-mdc-form-field-infix {
+    width: 80px;
+}
+
+.chart_box input[type="checkbox"] {
+    position: relative;
+    width: 50px;
+    height: 18px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #EBEAEA;
+    outline: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    /* box-shadow: inset 0 0 5px rgb(0 0 0 / 50%); */
+}
+
+.chart_box input[type="checkbox"]::before {
+    content: "";
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #FF6356;
+    position: absolute;
+    top: -6px;
+    left: -3px;
+    transition: 0.5s;
+}
+
+.chart_box input[type="checkbox"]:checked::before {
+    transform: translateX(100%);
+    background: #FF6356;
+}
+
+.chart_box input[type="checkbox"]:checked {
+    background: #EBEAEA;
+}
+
+.chart_box .form-check-input:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.fullWidth {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+::ng-deep .multiSelectDate .mat-mdc-text-field-wrapper {
+    border: none !important;
+    padding-left: 0;
+}
+
+::ng-deep .multiSelectDate .mat-mdc-form-field-infix {
+    margin-top: 5px;
+}
+
+::ng-deep .multiSelectDate .mat-mdc-form-field-icon-suffix {
+    position: absolute;
+    top: -19px;
+    left: -5px;
+}
+
+.multiSelectDate label {
+    padding: 0;
+    margin-left: 22px;
+}
+
+::ng-deep .person_detail .mat-mdc-text-field-wrapper {
+    padding-left: 0;
+}
+
+::ng-deep .person_detail .add_aggregate_input:first-child .mat-mdc-text-field-wrapper {
+    padding-left: 8px;
+}
+
+.chart_box .form-box .add_aggregate_input.position-relative label {
+    font-weight: 400;
+    color: #999999;
+}
+::ng-deep .form-box.mct_pipe mat-date-range-input input {
+    cursor: pointer;
+}
+
+::ng-deep .summarySection .mat-mdc-text-field-wrapper.mdc-text-field {
+    line-height: 0.7;
+}
+::ng-deep .summarySection .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0;
+}
+::ng-deep .summarySection .form-box .mat-datepicker-toggle .mat-mdc-icon-button svg, .summarySection .form-box .mat-datepicker-toggle .mat-mdc-icon-button img {
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+}
+.value h1.fontRed{
+    color: #FF6D60;
+    font-size: clamp(22px, 3.625vw, 60px);
+}
+.value.lastValue p{
+    margin-top: auto;
+    margin-bottom: 23px;
+}
+/* ================================================== Responsive =========================================== */
+@media (max-width:1600px) {
+    .value.lastValue p{
+        margin-bottom: 17px;
+    }
+    .multiSelectDate label {
+        margin-left: 17px;
+    }
+
+    .top_area ul li.columnArea {
+        min-width: 18vw;
+    }
+    .counsellingPadding {
+        padding: 0 1.06vw;
+    }
+
+    .value h1{
+        line-height: 1.2;
+    }
+    .chart_box input[type="checkbox"] {
+        position: relative;
+        width: 45px;
+        height: 14px;
+    }
+
+    .chart_box input[type="checkbox"]::before {
+        width: 23px;
+        height: 23px;
+    }
+
+    /* .value h1 {
+        font-size: 1.2vw;
+    } */
+
+    .changing_chart_img {
+        width: 20px;
+    }
+
+    ::ng-deep .detail_area .form-box .multiSelectDate .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+        min-width: 140px;
+        width: 140px;
+    }
+
+    .changing_charts>ul.dropdown-menu>li>a>img,
+    .child_inner_charts li a img {
+        height: 15px;
+    }
+    .chart_box {
+        height: 82vh;
+    }
+    .dynamic_chart {
+        height: calc(82vh - 124px);
+    }
+
+}
+
+@media (max-width:1366px) {
+    .value.lastValue p{
+        margin-bottom: 15px;
+    }
+    .multiSelectDate label {
+        margin-left: 20px;
+    }
+    h4.cardName {
+        /* font-size: 15px; */
+    }
+    
+    ::ng-deep .person_detail .mat-mdc-form-field-infix {
+        width: 80px;
+    }
+
+    .chart_box input[type="checkbox"] {
+        width: 40px;
+        height: 12px;
+    }
+
+    .chart_box input[type="checkbox"]::before {
+        width: 20px;
+        height: 20px;
+        top: -5px;
+    }
+
+
+    ::ng-deep .detail_area .form-box .multiSelectDate .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+        min-width: 130px;
+        width: 130px;
+    }
+
+    ::ng-deep .summarySection .form-box {
+        padding: 0;
+    }
+
+    .toggle_btn p {
+        font-size: 0.825vw;
+    }
+
+    /* .value {
+        padding: 5px 10px;
+    } */
+    
+    .user_head h4 {
+
+        font-size: 1vw;
+    }
+
+    /* .value p,
+    .value h1 span {
+        font-size: 0.825vw;
+    } */
+
+    /* .value h1 {
+        font-size: 1.6vw;
+    } */
+
+    /* .symbol h4 {
+        font-size: 14px;
+    } */
+
+    .areaNav button,
+    ul.childArea {
+        zoom: 0.8;
+    }
+
+    .tab_head h3 {
+        font-size: 1.025rem;
+        min-height: 30px;
+    }
+    /* .symbol{
+        min-width: 80px;
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+    } */
+    .chart_box {
+        height: 95vh;
+    }
+    .dynamic_chart {
+        height: calc(95vh - 134px);
+    }
+    .symbol{
+        height: 4.756vw;
+    }
+    .value h1 {
+        line-height: normal;
+        font-size: 1.511vw;
+    }
+
+    ::ng-deep .summarySection .form-box button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base svg {
+        width: 15px !important;
+    }
+    ::ng-deep .summarySection .multiSelectDate label {
+        margin-left: 15px !important;
+    }
+    ::ng-deep .summarySection .form-box .example-full-width .mat-mdc-text-field-wrapper{
+        min-height: auto;
+    }
+    ::ng-deep .summarySection .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        line-height: 0.6;
+    }
+}
+
+@media (max-width:1250px) {
+    .counsellingPadding {
+        padding: 0 1vw;
+    }
+    .value_area {
+        padding-left: 1.5vw;
+    }
+    .value p {
+        font-size: clamp(9.5px, 0.725vw, 14px);
+    }
+}
+
+@media (resolution: 1.25dppx) {
+    .top_area ul li.columnArea {
+        min-width: 22vw;
+    }    
+    .counsellingPadding{
+        padding: 0 2vw;
+    }
+}

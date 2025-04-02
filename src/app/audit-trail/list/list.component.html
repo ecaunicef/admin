@@ -1,0 +1,351 @@
+<div class="mainContent">
+    <div class="container-fluid px-0 h-100">
+        <div class="mainContent__main h-100">
+            <div class="mainContent__top">
+                <ul>
+                    <li>
+                        <div class="dataTables_length" id="data_upload1_length">
+                            <span class="showing">{{'show' | transloco}}</span>
+                            <label class="showDigits" > 
+                                <select id="mySelectId" (change)="changePageSize()">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </li>
+                    <!-- <li class="mct_pipe"><a data-bs-toggle="modal" data-bs-target="#export-popup" 
+                        matTooltip="Export">
+                        <img src="assets/images/icon/export.svg"></a>
+                    </li>
+                    <li class="mct_import"><a data-bs-toggle="modal" data-bs-target="#import-popup" matTooltip="Import">
+                        <img src="assets/images/icon/import.svg"></a>
+                    </li> -->
+                    <!-- <li class="mct_pipe {{addActive ? 'active': ''}}">
+                        <a (click)="bulkDelete()" href="javascript:void(0);" class="dlt"
+                            matTooltip="{{'delete' | transloco}}" [matTooltipPosition]="'above'"><img
+                                src="assets/images/icon/dlt.svg"></a>
+                    </li> -->
+                </ul>
+
+                <div [class]="seacrinput ? 'searchBar fullWidth' : 'searchBar'">
+                    <input type="search" class="seacrinput" placeholder="{{'search' | transloco}}" (input)="updateFilter($event)" />
+                    <div class="searchBar_icon" (click)="searchBar()">
+                        <img src="assets/images/icon/search.svg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ngxDatatable auditTrailDataTable">
+
+                    <ngx-datatable class="material" [rows]="rows" [headerHeight]="45" [columnMode]='"force"' [footerHeight]="40"
+                        [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+                        [selected]="selected" [scrollbarH]="true" [limit]="page.size" [selectionType]="SelectionType.checkbox"
+                        (select)="onSelect($event)" (page)="setPage($event)" [messages]="{emptyMessage:'No data'}"
+                        [count]="page.totalElements" [limit]="10">
+
+
+                    <ngx-datatable-column name="#" [width]="40" [canAutoResize]="false" [draggable]="false"
+                        [sortable]="false" [resizeable]="false">
+                        <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                            {{page.pageNumber*page.size+(rowIndex + 1)}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="{{'audit_trail.collection_name' | transloco}}" >
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.collectionName}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="{{'audit_trail.collection_id' | transloco}}">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.collectionId}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="{{'audit_trail.reason' | transloco}}" [maxWidth]="180">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.action}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="{{'audit_trail.user_name' | transloco}}" [maxWidth]="180">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.user}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="{{'audit_trail.changes' | transloco}}" [maxWidth]="100">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            <button (click)="showDiffList(row)" class="profile_view"><img
+                                    src="assets/images/profile_view.svg"></button>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="{{'audit_trail.created_at' | transloco}}" [maxWidth]="230">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template autocomplete="off">
+                            {{row.createdAt | date: 'yyyy-MM-dd hh:mm:ss a' }}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+
+                    <ngx-datatable-footer>
+                        <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                            let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                            <div class="CstmPadding">
+                                <div>
+                                    {{'showing'|transloco}} {{rowCount <=0 ? 0 : offset * pageSize +1 }} {{'to' |
+                                        transloco}} {{ rowCount> curPage *
+                                        pageSize ? curPage * pageSize : rowCount}} {{'of' | transloco}} {{rowCount}}
+                                        {{'records'|transloco}}
+
+                                </div>
+                            </div>
+                            <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                [pagerRightArrowIcon]="'datatable-icon-right'"
+                                [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'"
+                                [page]="curPage" [size]="pageSize" [count]="rowCount"
+                                [hidden]="!((rowCount / pageSize) > 1)" (change)="table.onFooterPage($event)">
+                            </datatable-pager>
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal_indicator auditHistory" id="export-popup" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>{{'audit_history' | transloco}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <span [ngSwitch]="otherFormat">
+                <div *ngSwitchCase="'Enterprise'" class="auditHistory_list">
+                    <ul>
+                        <!-- {{singleDiff | json}} -->
+                        <li *ngFor="let item of singleDiff">
+                            <p><strong>Field:</strong> {{item.key }} </p>
+                            <p class="pl-3"><strong>Before change:</strong> 
+                              
+                               
+
+                                <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[0])">
+                                    <span *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '': item.diffHistory[0]}}</span>
+                                    <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[0] == 1 ? 'true' :
+                                        'false'}}</span>
+                                    <span *ngSwitchDefault>
+                                        <ng-container *ngIf="checkFirst( item.diffHistory == null ? '': item.diffHistory[0]) == 'object'; else elseobject">
+                                            <span *ngFor="let item2 of  item.diffHistory == null ? {}: item.diffHistory[0] | keyvalue">
+                                                {{ item2.value }}
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #elseobject>
+                                                <!-- <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                                            <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                                                <p><strong>Field:</strong> {{item3.key || '-' }} </p>
+                                                                <p class="pl-3"><strong>After change:</strong> 
+                                                                {{ item3.value  || '-'}}
+                                                                </p>
+                                                        </span>
+                                                </span> -->
+                                        </ng-template>
+                                       
+                                       
+                                    </span>
+                                </span>
+                                
+                             
+                            </p>
+                            <p class="pl-3"><strong>{{'after_change' | transloco}}:</strong>
+                                <!-- {{item.diffHistory | json}} -->
+                            <!-- <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                        <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                            <p><strong>Field:</strong> {{item3.key || '-' }} </p>
+                                            <p class="pl-3"><strong>After change:</strong> 
+                                            {{ item3.value  || '-'}}
+                                            </p>
+                                    </span>
+                            </span> -->
+
+                            <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[1])">
+                                <span *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '': item.diffHistory[1]}}</span>
+                                <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[1] == 1 ? 'true' :
+                                    'false'}}</span>
+                                <span *ngSwitchDefault>
+                                    <ng-container *ngIf="checkFirst( item.diffHistory == null ? '': item.diffHistory[1]) == 'object'; else elseobject">
+                                        <span *ngFor="let item2 of  item.diffHistory == null ? {}: item.diffHistory[1] | keyvalue">
+                                            {{ item2.value }}
+                                        </span>
+                                    </ng-container>
+                                    <ng-template #elseobject>
+                                            <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                                        <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                                            <p><strong>Field:</strong> {{item3.key || '-' }} </p>
+                                                            <p class="pl-3"><strong>After change:</strong> 
+                                                            {{ item3.value  || '-'}}
+                                                            </p>
+                                                    </span>
+                                            </span>
+                                    </ng-template>
+                                   
+                                   
+                                </span>
+                            </span>
+                        
+                               
+                            </p>
+
+                        </li>
+                    </ul>
+                </div>
+                <div *ngSwitchCase="'Establishment'" class="auditHistory_list">
+                    <ul>
+                        <!-- {{singleDiff | json}} -->
+
+                        <li *ngFor="let item of singleDiff">
+                            <p><strong>Field:</strong> {{item.key }} </p>
+                            <p class="pl-3"><strong>Before change:</strong> 
+                              
+                                <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[0])">
+                                    <span *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '': item.diffHistory[0]}}</span>
+                                    <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[0] == 1 ? 'true' :
+                                        'false'}}</span>
+                                    <span *ngSwitchDefault>
+                                        
+                                        <span *ngFor="let item2 of  item.diffHistory == null ? {}: item.diffHistory[0] | keyvalue">
+                                            {{ item2.value }}
+                                        </span>
+                                        <!-- <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                            <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                                <p class="pl-3">
+                                                    <span *ngFor="let item4 of item3.value| keyvalue">
+                                                        <p><strong>Field:</strong> {{item3.key}}.{{item4.key || '-' }} </p>
+                                                        <p class="pl-3"><strong>After change:</strong>
+                                                            {{ item4.value || '-'}}
+                                                        </p>
+                                                    </span>
+                                                </p>
+                                
+                                
+                                            </span>
+                                        </span> -->
+                                    </span>
+                                </span>
+                                
+                             
+                            </p>
+                            <p class="pl-3"><strong>{{'after_change' | transloco}}:</strong>
+                              
+                                
+                                <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[1])">
+                                    <span *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '': item.diffHistory[1]}}</span>
+                                    <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[1] == 1 ? 'true' :
+                                        'false'}}</span>
+                                    <span *ngSwitchDefault>
+                                        <ng-container *ngIf="checkFirst( item.diffHistory == null ? '': item.diffHistory[1]) == 'object'; else elseobject">
+                                            <span *ngFor="let item2 of  item.diffHistory == null ? {}: item.diffHistory[1] | keyvalue">
+                                                {{ item2.value }}
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #elseobject>
+                                                 <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                            <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                                <p class="pl-3">
+                                                    <span *ngFor="let item4 of item3.value| keyvalue">
+                                                        <p><strong>Field:</strong> {{item3.key}}.{{item4.key || '-' }} </p>
+                                                        <p class="pl-3"><strong>After change:</strong>
+                                                            {{ item4.value || '-'}}
+                                                        </p>
+                                                    </span>
+                                                </p>
+                                
+                                
+                                            </span>
+                                        </span>
+                                        </ng-template>
+                                       
+                                       
+                                    </span>
+                                </span>
+
+                            <!-- <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory | keyvalue">
+                                        <span *ngFor="let item3 of item.diffHistory[item2.key]| keyvalue">
+                                            <p class="pl-3">
+                                            <span *ngFor="let item4 of item3.value| keyvalue">
+                                                <p><strong>Field:</strong> {{item3.key}}.{{item4.key || '-' }} </p>
+                                                <p class="pl-3"><strong>After change:</strong> 
+                                                {{ item4.value  || '-'}}
+                                                </p>
+                                            </span>
+                                        </p>
+
+                                            
+                                    </span>
+                            </span> -->
+                        
+                               
+                            </p>
+
+                        </li>
+                    </ul>
+                </div>
+                    <div *ngSwitchDefault class="auditHistory_list">
+                        <ul>
+                            <!-- {{singleDiff | json}} -->
+                            <li *ngFor="let item of singleDiff">
+                                <p><strong>Field:</strong> {{item.key }} </p>
+                                <p class="pl-3"><strong>Before change:</strong> 
+                                    <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[0])">
+                                        <span  *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '': item.diffHistory[0]}}</span>
+                                        <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[0] == 1 ? 'true' : 'false'}}</span>
+                                    <span *ngSwitchDefault>
+                                        <!-- {{item.diffHistory[0] | json}} -->
+                                        <span *ngFor="let item2 of  item.diffHistory == null ? {}: item.diffHistory[0] | keyvalue">
+                                            {{ item2.value }}
+                                            <!-- Key: {{ item2.key }}, Value: {{ item2.value }} -->
+                                        </span>
+                                    </span>
+                                    </span>
+                                 
+                                </p>
+                                <p class="pl-3"><strong>{{'after_change' | transloco}}:</strong>
+                                    <span [ngSwitch]="checkType( item.diffHistory == null ? '': item.diffHistory[1])">
+                                            <span  *ngSwitchCase="'string'"> {{ item.diffHistory == null ? '':item.diffHistory[1]}}</span>
+                                            <span *ngSwitchCase="'number'"> {{ item.diffHistory == null ? '': item.diffHistory[1] == 1 ? 'true' : 'false'}}</span>
+                                        <span *ngSwitchDefault>
+                                        {{item.diffHistory[1] | json}}
+    
+                                            <span *ngFor="let item2 of item.diffHistory == null ? {}: item.diffHistory[1] | keyvalue">
+                                                {{ item2.value }}
+                                                <!-- Key: {{ item2.key }}, Value: {{ item2.value }} -->
+                                            </span>
+                                        </span>
+                                        </span>
+                                   
+                                </p>
+    
+                            </li>
+                        </ul>
+    
+    
+    
+    
+                    </div>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>

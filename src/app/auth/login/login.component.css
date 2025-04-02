@@ -1,0 +1,307 @@
+.authentication {
+    height: calc(100vh - 34px);
+}
+
+.authentication>.container-fluid {
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 100%;
+}
+
+.authentication .authentication__main {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+}
+
+.authentication .authentication__main .authentication__loginBox {
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(15px);
+    padding: 60px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
+    margin-left: 50px;
+}
+
+.authentication .authentication__main .authentication__loginBox form {
+    display: flex;
+    flex-direction: column;
+}
+
+.authentication .authentication__main .authentication__loginBox form h2 {
+    font-family: var(--primaryFontFamily);
+    font-size: 2.286rem;
+    font-weight: 700;
+    list-style: 1.2;
+    color: #ffffff;
+    margin: 0 0 30px;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group {
+    margin: 0 0 30px;
+    position: relative;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control {
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+    background-color: transparent;
+    border-radius: 0;
+    border: 1px solid #ffffff;
+    outline: none !important;
+    padding: 13.5px 15px;
+}
+
+/* Change Autocomplete styles in Chrome*/
+.authentication .authentication__main .authentication__loginBox form .form-group input:-webkit-autofill,
+.authentication .authentication__main .authentication__loginBox form .form-group input:-webkit-autofill:hover,
+.authentication .authentication__main .authentication__loginBox form .form-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control::-webkit-input-placeholder {
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control::-moz-placeholder {
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control:-ms-input-placeholder {
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control:-moz-placeholder {
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="email"] {
+    background: transparent;
+    padding-left: 35px;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="password"],
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="text"] {
+    background: transparent;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .loginPlaceholder {
+    display: inline-block;
+    font-family: var(--primaryFontFamily);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+
+    position: absolute;
+    top: 50%;
+    left: 35px;
+    transform: translateY(-50%);
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control:focus+.loginPlaceholder,
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control:visited+.loginPlaceholder {
+    top: 0;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .captchaBox {
+    background-color: #f3f3f3;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .captchaBox canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .createCaptcha {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    outline: none !important;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group small {
+    display: block;
+    font-family: var(--primaryFontFamily);
+    line-height: 1.2;
+    margin-top: 5px;
+    font-size: 0.929rem;
+    color: #FDD402;
+    font-weight: 600;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .btn {
+    border-radius: 0;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .btn img {
+    width: 15px;
+    margin-left: 5px;
+}
+
+.error_login {
+    font-size: 0.929rem;
+    color: #FDD402;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.formInput_icon {
+    position: absolute;
+    top: 15px;
+    margin: auto;
+    left: 10px;
+}
+
+.formInput_icon.formInput_iconEnvelope {
+    top: 18px;
+}
+
+.authentication .authentication__main .authentication__loginBox form .form-group .form-control.ng-invalid+img.formInput_icon {
+    filter: unset;
+}
+
+.password_hide {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    display: flex;
+    cursor: pointer;
+    height: 16px;
+    align-items: center;
+}
+
+.password_hide img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    transition: all .3s ease-in-out;
+}
+
+.password_hide:hover img {
+    filter: invert(24%) sepia(82%) saturate(2389%) hue-rotate(338deg) brightness(93%) contrast(98%);
+}
+
+::ng-deep .captchaBox svg path {
+    fill: #000000;
+    stroke: #000;
+}
+::ng-deep #captcha svg {
+    vertical-align: unset;
+}
+/* -------------------------------------------------------- Reset Password ------------------------------------------- */
+.back_to_home {
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+.back_to_home svg {
+    transform: rotate(180deg);
+}
+
+.success-message {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.429rem;
+    margin-top: 10px;
+}
+/* -------------------------------------------------------- Responsive ----------------------------------------------- */
+@media (min-width: 1600px) and (max-width: 1919px) {
+
+
+    .authentication .authentication__main .authentication__loginBox {
+        padding: 40px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group {
+        margin: 0 0 20px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group.custom-margin {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width:1366px) {
+    .authentication .authentication__main .authentication__loginBox form .form-group .captchaBox {
+        height: 37px;
+        display: flex;
+        align-items: center;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group .createCaptcha img {
+        width: 16px;
+    }
+    .authentication .authentication__main .authentication__loginBox {
+        padding: 30px;
+        width: 400px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form h2 {
+        font-size: 1.571rem;
+        margin: 0 0 20px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group .form-control {
+        font-size: 1rem;
+        padding: 9px 15px;
+    }
+
+    .formInput_icon.formInput_iconEnvelope {
+        top: 11px;
+    }
+
+    .formInput_icon {
+        top: 8px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group {
+        margin: 0 0 20px;
+    }
+
+    .authentication .authentication__main .authentication__loginBox form .form-group .btn {
+        font-size: 1rem;
+    }
+    .password_hide{
+        top: 12px;
+        width: 16px;
+        height: 12px;
+    }
+    .password_hide img{
+        width: 100%;
+    }
+    .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="password"], .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="text"], .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="email"]{
+        font-size: 1rem;
+    }
+    .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="password"]::placeholder, .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="text"]::placeholder, .authentication .authentication__main .authentication__loginBox form .form-group .form-control[type="email"]::placeholder{
+        font-size: 1rem;
+    }
+}

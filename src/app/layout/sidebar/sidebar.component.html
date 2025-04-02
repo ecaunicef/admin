@@ -1,0 +1,166 @@
+<div class="{{sidebar ? 'mainSidebar ms_width' : 'mainSidebar'}}" [ngClass]="['/credential', '/helpline', '/area-list', '/category', '/blog', '/classification', '/customize', '/language', '/landing', '/mood-mapper'].includes(route.url) ? 'sidebarHeight' : ''">
+
+
+	<div class="accordion" id="accordionExample">
+		<ul class="menuFirstLevel dash_ul" id="accordionMainSidebar">
+			<!-- <li>
+				<a href="javascript:void(0)" [routerLink]="['/welcome']" routerLinkActive="active-link">
+					<span class="mainMenuIcon"><img src="assets/images/sidebar/welcome.svg" /></span>
+					<span>Welcome</span>
+				</a>
+			</li> -->
+			<li>
+				<a href="javascript:void(0)" [routerLink]="['/summary']" routerLinkActive="active-link">
+					<span class="mainMenuIcon"><img src="assets/images/sidebar/dashboard.svg" /></span>
+					<span>Summary</span>
+				</a>
+			</li>
+		</ul>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button" type="button"
+					[ngClass]="{'collapsed': !isAccordionOpen('mobile-data')}" data-bs-toggle="collapse"
+					data-bs-target="#collapseTwo" [attr.aria-expanded]="isAccordionOpen('mobile-data')"
+					aria-controls="collapseTwo">
+					<span class="mainMenuIcon"><img src="assets/images/sidebar/mobiledata.svg" /></span>
+					Mobile Data
+				</button>
+			</h2>
+			<div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': isAccordionOpen('mobile-data')}" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<ul class="menuFirstLevel">
+						<li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/users']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Mobile App Users</span>
+							</a>
+						</li>
+						<li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/counselling']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Counselling</span>
+							</a>
+						</li>
+						<li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/feedback']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Feedback</span>
+							</a>
+						</li>
+						<li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/mood-trackers']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Mood Tracker</span>
+							</a>
+						</li>
+					
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button" type="button" [ngClass]="{'collapsed': !isAccordionOpen('admin')}"
+					data-bs-toggle="collapse" data-bs-target="#collapseThree"
+					[attr.aria-expanded]="isAccordionOpen('admin')" aria-controls="collapseThree">
+					<span class="mainMenuIcon"><img src="assets/images/sidebar/admin.svg" /></span>
+					Admin
+				</button>
+			</h2>
+			<div id="collapseThree" class="accordion-collapse collapse" [ngClass]="{'show': isAccordionOpen('admin')}" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<ul class="menuFirstLevel">
+					
+						<!-- <li accessControl module="User" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/area-list']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Country</span>
+							</a>
+						</li> -->
+
+						<li accessControl module="User" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/credential']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Admin Users</span>
+							</a>
+						</li>
+						<li accessControl module="User" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/area-list']"
+								routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Geographical Area</span>
+							</a>
+						</li>
+						<li accessControl module="User" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/classification']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Classification</span>
+							</a>
+						</li>
+						
+						
+				
+						<li module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/helpline']"
+								routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Helpline</span>
+							</a>
+						</li>
+						<li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/blog']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Broadcast</span>
+							</a>
+						</li>
+						
+				
+						<!-- <li accessControl module="Admin" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/customize']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span></span>
+							</a>
+						</li> -->
+						<li accessControl module="User" accessType="sidebar">
+							<div class="dropdown" [routerLinkActive]="['active-link']"
+								[routerLinkActiveOptions]="{ exact: false }">
+								<a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<span class="mainMenuSquare"></span>
+									<span>Mobile App Customize</span>
+									<span class="mainMenuArrow"><img src="assets/images/icon/arrow_new.svg"></span>
+								</a>
+
+							
+								<ul class="dropdown-menu">
+									<li accessControl module="Admin" accessType="sidebar">
+										<a href="javascript:void(0)" [routerLink]="['/customize']"
+											routerLinkActive="active-link">
+											<span class="mainMenuSquare"></span>
+											<span>U-Matter Chatline</span>
+										</a>
+									</li>
+									<!-- <li accessControl module="Admin" accessType="sidebar">
+										<a href="javascript:void(0)" [routerLink]="['/mood-mapper']"
+											routerLinkActive="active-link">
+											<span class="mainMenuSquare"></span>
+											<span>Mood Mapper</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+						</li>
+						
+						<li accessControl module="User" accessType="sidebar">
+							<a href="javascript:void(0)" [routerLink]="['/language']" routerLinkActive="active-link">
+								<span class="mainMenuSquare"></span>
+								<span>Language</span>
+							</a>
+						</li>
+				
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

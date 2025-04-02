@@ -1,0 +1,49 @@
+<div role="dialog" id="modalDropDownDesc" class="modal fade custom-popup custombackdrop filterModal show" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{modalTitle}}</h4>
+                <button type="button" class="btn-close" (click)="closeDescriptionModal()"></button>
+            </div>
+            <div class="modal-body pb-0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Column Name</th>
+                            <th scope="col">Operator</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of rows; let last = last">
+                            <td>{{item?.displayName}}</td>
+                            <td>{{item?.operator}}</td>
+                            <td>
+                                <ng-container *ngIf="item?.operator == 'BETWEEN'; else elseBetween">
+                                    {{item.from}}-{{item.to}}
+                                </ng-container>
+                                <ng-template #elseBetween>        
+                                    {{item?.listName}}
+                                </ng-template>
+                                
+                            </td>
+                            <!-- <td>
+                                 <ng-container *ngFor="let elem of item.data; let last = last">
+                                        {{ elem?.columnName+' '+elem?.operator+' '+elem?.listName}}{{ !last ? ', ' : '' }}
+
+                                    </ng-container>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+    
+                </div>
+                <div class="modal-footer justify-content-center modal-footer-shadow">
+                        <button type="button" class="btn btn-primary m-0 d-flex align-items-center"  (click)="submitSelection()" data-bs-dismiss="modal">Ok 
+                            <!-- <img class="ms-2" src="assets/images/arrow-right.svg"> -->
+                        </button>                  
+                   
+                </div>
+            </div>
+        </div>
+    </div>
